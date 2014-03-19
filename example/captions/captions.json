@@ -1,0 +1,188 @@
+{
+	"Cat_LooksAwesome":
+	{
+		"lines":
+		[
+			{"start":0, "end":2000, "content":"Ohh that looks awesome!"}
+		]
+	},
+	"Cat_LoveIt":
+	{
+		"lines":
+		[
+			{"start":0, "end":2000, "content":"Love it, absolutely love it!"}
+		]
+	},
+	"Cat_NiceLooksGreat":
+	{
+		"lines":
+		[
+			{"start":0, "end":2000, "content":"Nice she looks great!"}
+		]
+	},
+	"Cat_PegsNewLook":
+	{
+		"lines":
+		[
+			{"start":0, "end":2000, "content":"I think this is gonna be Peg's new look!"}
+		]
+	},
+	"Cat_PegWouldNever":
+	{
+		"lines":
+		[
+			{"start":0, "end":2000, "content":"Peg would never wear that!"},
+			{"start":2000, "end":3000, "content":"But she should..."}
+		]
+	},
+	"Cat_Ridiculous":
+	{
+		"lines":
+		[
+			{"start":0, "end":2000, "content":"Ridiculous! In a good way!"}
+		]
+	},
+	"Cat_SoCool":
+	{
+		"lines":
+		[
+			{"start":0, "end":2000, "content":"So cool!"}
+		]
+	},
+	"Cat_SoSilly":
+	{
+		"lines":
+		[
+			{"start":0, "end":2000, "content":"Haha that is so silly! You are so silly!"}
+		]
+	},
+	"Peg_Belle":
+	{
+		"lines":
+		[
+			{"start":0, "end":2000, "content":"She's the belle of the ball!"},
+			{"start":2000, "end":3000, "content":"Whatever that means."}
+		]
+	},
+	"Peg_FashionStatement":
+	{
+		"lines":
+		[
+			{"start":0, "end":2000, "content":"Now that's what I call a fashion statement!"}
+		]
+	},
+	"Peg_Hahaha":
+	{
+		"lines":
+		[
+			{"start":0, "end":2000, "content":"::giggles::"}
+		]
+	},
+	"Peg_HeresWhere":
+	{
+		"lines":
+		[
+			{"start":0, "end":2000, "content":"Here's where you can dress up me and my friends"},
+			{"start":2000, "end":5000, "content":"in some totally silly outfits!"}
+		]
+	},
+	"Peg_Hilarious":
+	{
+		"lines":
+		[
+			{"start":0, "end":2000, "content":"That's hilarious!"}
+		]
+	},
+	"Peg_ILoveit":
+	{
+		"lines":
+		[
+			{"start":0, "end":2000, "content":"I love it!"}
+		]
+	},
+	"Peg_LoveIt":
+	{
+		"lines":
+		[
+			{"start":0, "end":2000, "content":"Love it!"}
+		]
+	},
+	"Peg_Mahvelous":
+	{
+		"lines":
+		[
+			{"start":0, "end":3000, "content":"Marvelous! I've always wanted to say that!"}
+		]
+	},
+	"Peg_PickCharacter":
+	{
+		"lines":
+		[
+			{"start":0, "end":2000, "content":"First pick a character!"}
+		]
+	},
+	"Peg_PickCharacter2":
+	{
+		"lines":
+		[
+			{"start":0, "end":2000, "content":"Pick a character!"}
+		]
+	},
+	"Peg_PickCharacter3":
+	{
+		"lines":
+		[
+			{"start":0, "end":2000, "content":"Okay, who do you wanna dress up?"}
+		]
+	},
+	"Peg_PickCharacter4":
+	{
+		"lines":
+		[
+			{"start":0, "end":2000, "content":"Click a character!"}
+		]
+	},
+	"Peg_PullThatOff":
+	{
+		"lines":
+		[
+			{"start":0, "end":3000, "content":"I could not pull that off, but he can!"}
+		]
+	},
+	"Peg_SilliestOutfit":
+	{
+		"lines":
+		[
+			{"start":0, "end":3000, "content":"That is the silliest outfit I've ever seen!"}
+		]
+	},
+	"Peg_Smashing":
+	{
+		"lines":
+		[
+			{"start":0, "end":1500, "content":"They look smashing!"},
+			{"start":1500, "end":3000, "content":"That's something people say, right?"}
+		]
+	},
+	"Peg_SoFunny":
+	{
+		"lines":
+		[
+			{"start":0, "end":2000, "content":"So funny!"}
+		]
+	},
+	"Peg_TeeheeSilly":
+	{
+		"lines":
+		[
+			{"start":0, "end":2000, "content":"That looks silly!"}
+		]
+	},
+	"Peg_TheNines":
+	{
+		"lines":
+		[
+			{"start":0, "end":3000, "content":"He's dressed to the nines! Whatever that means."}
+		]
+	}
+}
