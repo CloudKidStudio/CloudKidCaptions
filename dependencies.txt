@@ -1,4 +1,0 @@
-EaselJS/lib/easeljs-0.6.1.min.js
-PreloadJS/lib/preloadjs-0.3.2.min.js
-CloudKidOS/deploy/cloudkid-os-createjs.min.js
-CloudKidAudio/deploy/cloudkid-audio.min.js
