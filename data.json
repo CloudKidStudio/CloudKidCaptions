@@ -1,0 +1,627 @@
+{
+    "project": {
+        "name": "CloudKid Captions API",
+        "description": "CloudKid Captions API: a library for playing captions with sound",
+        "version": "1.0.0",
+        "logo": "cloudkid.png"
+    },
+    "files": {
+        "src/Captions.js": {
+            "name": "src/Captions.js",
+            "modules": {},
+            "classes": {
+                "cloudkid.Captions": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "cloudkid": 1
+            }
+        }
+    },
+    "modules": {},
+    "classes": {
+        "cloudkid.Captions": {
+            "name": "cloudkid.Captions",
+            "shortname": "cloudkid.Captions",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "namespace": "cloudkid",
+            "file": "src/Captions.js",
+            "line": 6,
+            "description": "A class that creates captioning for multimedia content. Captions are\ncreated from a dictionary of captions and can be played by alias. Captions \nis a singleton class and depends on `cloudkid.Audio` for the progress update.",
+            "example": [
+                "\n\t\tvar captionsDictionary = {\n\t\t\t\"Alias1\": [\n\t\t\t\t{\"start\":0, \"end\":2000, \"content\":\"Ohh that looks awesome!\"}\n\t\t\t],\n\t\t\t\"Alias2\": [\n\t\t\t\t{\"start\":0, \"end\":2000, \"content\":\"Love it, absolutely love it!\"}\n\t\t\t]\n\t\t};\n\t\n\t\tvar captions = new cloudkid.Captions(captionsDictionary);\n\t\tcaptions.play(\"Alias1\");"
+            ],
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "captionDictionary",
+                    "description": "The dictionary of captions",
+                    "type": "Dictionary"
+                }
+            ],
+            "author": "Matt Moore, matt@cloudkid.com"
+        }
+    },
+    "classitems": [
+        {
+            "file": "src/Captions.js",
+            "line": 36,
+            "description": "Reference to the inherieted task",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "p",
+            "type": "Object",
+            "class": "cloudkid.Captions",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/Captions.js",
+            "line": 44,
+            "description": "An object used as a dictionary with keys that should be the same as sound aliases",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "_captionDict",
+            "type": "Dictionary",
+            "class": "cloudkid.Captions",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/Captions.js",
+            "line": 52,
+            "description": "A reference to the CreateJS Text object that Captions should be controlling. \n\tOnly one text field can be controlled at a time.",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "_textField",
+            "type": "Text",
+            "class": "cloudkid.Captions",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/Captions.js",
+            "line": 61,
+            "description": "The function to call when playback is complete.",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "_completeCallback",
+            "type": "Function",
+            "class": "cloudkid.Captions",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/Captions.js",
+            "line": 69,
+            "description": "The collection of line objects {start:0, end:0, content:\"\"}",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "_lines",
+            "type": "Array",
+            "class": "cloudkid.Captions",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/Captions.js",
+            "line": 77,
+            "description": "The duration in milliseconds of the current sound.",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "_currentDuration",
+            "type": "Int",
+            "class": "cloudkid.Captions",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/Captions.js",
+            "line": 85,
+            "description": "The current playback time",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "_currentTime",
+            "type": "Int",
+            "class": "cloudkid.Captions",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/Captions.js",
+            "line": 93,
+            "description": "Save the current line index",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "_currentLine",
+            "type": "Int",
+            "class": "cloudkid.Captions",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/Captions.js",
+            "line": 101,
+            "description": "Cache the last active line",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "_lastActiveLine",
+            "type": "Int",
+            "class": "cloudkid.Captions",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/Captions.js",
+            "line": 109,
+            "description": "If we're playing",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "_playing",
+            "type": "Bool",
+            "class": "cloudkid.Captions",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/Captions.js",
+            "line": 117,
+            "description": "The singleton instance of Captions",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "_instance",
+            "type": "cloudkid.Captions",
+            "class": "cloudkid.Captions",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/Captions.js",
+            "line": 125,
+            "description": "If you want to mute the captions, doesn't remove the current caption",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "_muteAll",
+            "type": "Bool",
+            "class": "cloudkid.Captions",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/Captions.js",
+            "line": 133,
+            "description": "If this Captions instance is a 'slave', that doesn't run cloudkid.Audio\nand must have update() called manually (and passed milliseconds).\nDefault is false.",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "isSlave",
+            "type": "Bool",
+            "class": "cloudkid.Captions",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/Captions.js",
+            "line": 143,
+            "description": "If text should be set on the text field with '.text = ' instead of '.setText()'.\nDefault is true.",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "textIsProp",
+            "type": "Bool",
+            "class": "cloudkid.Captions",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/Captions.js",
+            "line": 152,
+            "description": "If this instance has been destroyed already",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "_isDestroyed",
+            "type": "Bool",
+            "class": "cloudkid.Captions",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/Captions.js",
+            "line": 160,
+            "description": "A bound update function to get the progress from Sound with",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "_boundUpdate",
+            "type": "Function",
+            "class": "cloudkid.Captions",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/Captions.js",
+            "line": 168,
+            "description": "A bound completion callback for when Sound has finished playing.",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "_boundComplete",
+            "type": "Function",
+            "class": "cloudkid.Captions",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/Captions.js",
+            "line": 176,
+            "description": "The version number of this library",
+            "access": "public",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "VERSION",
+            "type": "String",
+            "static": 1,
+            "class": "cloudkid.Captions",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/Captions.js",
+            "line": 185,
+            "description": "Creates the singleton instance of Captions, with an optional dictionary ready to go",
+            "access": "public",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "init",
+            "params": [
+                {
+                    "name": "captionDictionary",
+                    "description": "An object set up in dictionary format of caption objects."
+                }
+            ],
+            "static": 1,
+            "class": "cloudkid.Captions",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/Captions.js",
+            "line": 198,
+            "description": "The singleton instance of Captions",
+            "static": 1,
+            "readonly": "",
+            "access": "public",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "instance",
+            "type": "cloudkid.Captions",
+            "class": "cloudkid.Captions",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/Captions.js",
+            "line": 210,
+            "description": "Constructor for caption.",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "initialize",
+            "params": [
+                {
+                    "name": "captionDictionary",
+                    "description": "An object set up in dictionary format of caption objects."
+                }
+            ],
+            "class": "cloudkid.Captions",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/Captions.js",
+            "line": 232,
+            "description": "Mute all of the captions.",
+            "access": "public",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "setMuteAll",
+            "params": [
+                {
+                    "name": "muteAll",
+                    "description": "Whether to mute or unmute",
+                    "type": "Bool"
+                }
+            ],
+            "static": 1,
+            "class": "cloudkid.Captions",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/Captions.js",
+            "line": 248,
+            "description": "If the captions are all currently muted.",
+            "access": "public",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "getMuteAll",
+            "static": 1,
+            "return": {
+                "description": "Whether the captions are all muted",
+                "type": "Bool"
+            },
+            "class": "cloudkid.Captions",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/Captions.js",
+            "line": 261,
+            "description": "Sets the dictionary object to use for captions. This overrides the current dictionary, if present.",
+            "access": "public",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "setDictionary",
+            "params": [
+                {
+                    "name": "dict",
+                    "description": "The dictionary object to use for captions.",
+                    "type": "Dictionary"
+                }
+            ],
+            "class": "cloudkid.Captions",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/Captions.js",
+            "line": 305,
+            "description": "Sets the CreateJS Text or Pixi BitmapText/Text object that Captions should control the text of. \nOnly one text field can be controlled at a time.",
+            "access": "public",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "setTextField",
+            "params": [
+                {
+                    "name": "field",
+                    "description": "The CreateJS Text object",
+                    "type": "Text"
+                }
+            ],
+            "class": "cloudkid.Captions",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/Captions.js",
+            "line": 325,
+            "description": "Returns if there is a caption under that alias or not.",
+            "itemtype": "method",
+            "name": "hasCaption",
+            "params": [
+                {
+                    "name": "alias",
+                    "description": "The alias to check against",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "Whether the caption was found or not",
+                "type": "Bool"
+            },
+            "class": "cloudkid.Captions",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/Captions.js",
+            "line": 337,
+            "description": "Sets an array of line data as the current caption data to play.",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "_load",
+            "params": [
+                {
+                    "name": "data",
+                    "description": "The string",
+                    "type": "String"
+                }
+            ],
+            "class": "cloudkid.Captions",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/Captions.js",
+            "line": 360,
+            "description": "Reset the captions",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "_reset",
+            "class": "cloudkid.Captions",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/Captions.js",
+            "line": 372,
+            "description": "Take the captions timecode and convert to milliseconds\nformat is in HH:MM:ss:mmm",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "_timeCodeToMilliseconds",
+            "params": [
+                {
+                    "name": "input",
+                    "description": "The input string of the format",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "Time in milliseconds",
+                "type": "Int"
+            },
+            "class": "cloudkid.Captions",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/Captions.js",
+            "line": 393,
+            "description": "The playing status.",
+            "access": "public",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "isPlaying",
+            "return": {
+                "description": "If the caption is playing",
+                "type": "Bool"
+            },
+            "class": "cloudkid.Captions",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/Captions.js",
+            "line": 416,
+            "description": "Start the caption playback. Captions will tell cloudkid.Audio to play the proper sound.",
+            "access": "public",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "play",
+            "params": [
+                {
+                    "name": "alias",
+                    "description": "The desired caption's alias",
+                    "type": "String"
+                },
+                {
+                    "name": "callback",
+                    "description": "The function to call when the caption is finished playing",
+                    "type": "Function"
+                }
+            ],
+            "class": "cloudkid.Captions",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/Captions.js",
+            "line": 439,
+            "description": "Starts caption playback without controlling the sound. Returns the update\nfunction that should be called to control the Captions object.",
+            "access": "public",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "run",
+            "params": [
+                {
+                    "name": "alias",
+                    "description": "The caption/sound alias",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "The update function that should be called",
+                "type": "Function"
+            },
+            "class": "cloudkid.Captions",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/Captions.js",
+            "line": 460,
+            "description": "Is called when cloudkid.Audio finishes playing. Is not called if \na cloudkid.AudioAnimation finishes playing, as then stop() is called.",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "_onSoundComplete",
+            "class": "cloudkid.Captions",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/Captions.js",
+            "line": 477,
+            "description": "Convience function for stopping captions. Is also called by \ncloudkid.AudioAnimation when it is finished.",
+            "access": "public",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "stop",
+            "class": "cloudkid.Captions",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/Captions.js",
+            "line": 497,
+            "description": "Goto a specific time.",
+            "access": "public",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "seek",
+            "params": [
+                {
+                    "name": "time",
+                    "description": "The time in milliseconds to seek to in the captions",
+                    "type": "Int"
+                }
+            ],
+            "class": "cloudkid.Captions",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/Captions.js",
+            "line": 543,
+            "description": "Callback for when a frame is entered.",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "_updatePercent",
+            "params": [
+                {
+                    "name": "progress",
+                    "description": "The progress in the current sound as a percentage (0-1)",
+                    "type": "Number"
+                }
+            ],
+            "class": "cloudkid.Captions",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/Captions.js",
+            "line": 557,
+            "description": "Function to update the amount of time elapsed for the caption playback.\nCall this to advance the caption by a given amount of time.",
+            "access": "public",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "updateTime",
+            "params": [
+                {
+                    "name": "progress",
+                    "description": "The time elapsed since the last frame in milliseconds",
+                    "type": "Int"
+                }
+            ],
+            "class": "cloudkid.Captions",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/Captions.js",
+            "line": 572,
+            "description": "Calculates the captions after increasing the current time.",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "_calcUpdate",
+            "class": "cloudkid.Captions",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/Captions.js",
+            "line": 609,
+            "description": "Updates the text in the managed text field.",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "_updateCaptions",
+            "class": "cloudkid.Captions",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/Captions.js",
+            "line": 627,
+            "description": "Destroy this load task and don't use after this",
+            "itemtype": "method",
+            "name": "destroy",
+            "class": "cloudkid.Captions",
+            "namespace": "cloudkid"
+        }
+    ],
+    "warnings": []
+}
