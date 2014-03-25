@@ -3,6 +3,10 @@ CloudKid Captions
 
 API for controlling the playback of captions in CloudKidOS
 
+##Documentation##
+
+http://cloudkidstudio.github.io/CloudKidSound/
+
 ##Installation##
 
 CloudKid Captions can be install using Bower.
