@@ -11,7 +11,7 @@
     p._playing = !1;
     var _instance = null, _muteAll = !1;
     p.isSlave = !1, p.textIsProp = !0, p._isDestroyed = !1, p._boundUpdate = null, p._boundComplete = null, 
-    Captions.VERSION = "1.0.0", Captions.init = function(captionDictionary, isSlave) {
+    Captions.VERSION = "1.0.1", Captions.init = function(captionDictionary, isSlave) {
         _instance = new Captions(captionDictionary, isSlave);
     }, Object.defineProperty(Captions, "instance", {
         get: function() {
@@ -44,8 +44,7 @@
     }, p.hasCaption = function(alias) {
         return this._captionDict ? !!this._captionDict[alias] : !1;
     }, p._load = function(data) {
-        return this._isDestroyed ? void 0 : (this._reset(), data ? (this._lines = data.lines, 
-        void 0) : (this._lines = null, void 0));
+        return this._isDestroyed ? void 0 : (this._reset(), data ? void (this._lines = data.lines) : void (this._lines = null));
     }, p._reset = function() {
         this._currentLine = -1, this._lastActiveLine = -1;
     }, p.isPlaying = function() {
@@ -60,7 +59,7 @@
     }), p.play = function(alias, callback) {
         this._completeCallback = callback, this._playing = !0, this._load(this._captionDict[alias]), 
         this.isSlave ? this._currentDuration = this._calcCurrentDuration() : (this._currentDuration = 1e3 * Audio.instance.getLength(alias), 
-        Audio.instance.play(alias, this._boundComplete, this._boundUpdate)), this.seek(0);
+        Audio.instance.play(alias, this._boundComplete, null, this._boundUpdate)), this.seek(0);
     }, p.run = function(alias) {
         return this._completeCallback = null, this._load(this._captionDict[alias]), this._currentDuration = this.isSlave ? this._calcCurrentDuration() : 1e3 * Audio.instance.getLength(alias), 
         this.seek(0), this._boundUpdate;
@@ -72,9 +71,9 @@
         this._completeCallback = null, this._reset(), this._updateCaptions();
     }, p.seek = function(time) {
         var currentTime = this._currentTime = time, lines = this._lines;
-        if (!lines) return this._updateCaptions(), void 0;
+        if (!lines) return void this._updateCaptions();
         if (currentTime < lines[0].start) return currentLine = this._lastActiveLine = -1, 
-        this._updateCaptions(), void 0;
+        void this._updateCaptions();
         for (var len = lines.length, i = 0; len > i; i++) {
             if (currentTime >= lines[i].start && currentTime <= lines[i].end) {
                 this._currentLine = this._lastActiveLine = i, this._updateCaptions();

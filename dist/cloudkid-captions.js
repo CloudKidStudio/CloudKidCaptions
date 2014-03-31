@@ -431,7 +431,7 @@
 		else
 		{
 			this._currentDuration = Audio.instance.getLength(alias) * 1000;
-			Audio.instance.play(alias, this._boundComplete, this._boundUpdate);
+			Audio.instance.play(alias, this._boundComplete, null, this._boundUpdate);
 		}
 		this.seek(0);
 	};

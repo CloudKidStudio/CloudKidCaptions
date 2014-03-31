@@ -1,10 +1,10 @@
 {
     "name": "cloudkid-captions",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "main": "dist/cloudkid-captions.min.js",
     "dependencies": {
         "cloudkid-os" : "*",
-        "cloudkid-audio" : "*"
+        "cloudkid-audio" : "~2.0.0"
     },
     "ignore": [
         "build.xml",
