@@ -4,7 +4,7 @@
         return h + m + s + ms;
     }
     var Audio = cloudkid.Audio, Captions = function(captionDictionary, isSlave) {
-        this.isSlave = !!isSlave, this.initialize(captionDictionary);
+        Audio || (Audio = cloudkid.Audio), this.isSlave = !!isSlave, this.initialize(captionDictionary);
     }, p = Captions.prototype;
     p._captionDict = null, p._textField = null, p._completeCallback = null, p._lines = null, 
     p._currentDuration = 0, p._currentTime = 0, p._currentLine = -1, p._lastActiveLine = -1, 

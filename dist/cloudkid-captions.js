@@ -29,6 +29,8 @@
 	*/
 	var Captions = function(captionDictionary, isSlave)
 	{
+		if(!Audio)
+			Audio = cloudkid.Audio;
 		this.isSlave = !!isSlave;
 		this.initialize(captionDictionary);
 	};
