@@ -10,8 +10,9 @@
     p._currentDuration = 0, p._currentTime = 0, p._currentLine = -1, p._lastActiveLine = -1, 
     p._playing = !1;
     var _instance = null, _muteAll = !1;
-    p.isSlave = !1, p.textIsProp = !0, p._isDestroyed = !1, p._boundUpdate = null, p._boundComplete = null, 
-    Captions.VERSION = "1.0.1", Captions.init = function(captionDictionary, isSlave) {
+    p.isSlave = !1, p.textIsProp = !0, p._animTimeline = null, p._isDestroyed = !1, 
+    p._boundUpdate = null, p._boundComplete = null, Captions.VERSION = "1.0.1", 
+    Captions.init = function(captionDictionary, isSlave) {
         _instance = new Captions(captionDictionary, isSlave);
     }, Object.defineProperty(Captions, "instance", {
         get: function() {
@@ -61,14 +62,18 @@
         this.isSlave ? this._currentDuration = this._calcCurrentDuration() : (this._currentDuration = 1e3 * Audio.instance.getLength(alias), 
         Audio.instance.play(alias, this._boundComplete, null, this._boundUpdate)), this.seek(0);
     }, p.run = function(alias) {
-        return this._completeCallback = null, this._load(this._captionDict[alias]), this._currentDuration = this.isSlave ? this._calcCurrentDuration() : 1e3 * Audio.instance.getLength(alias), 
+        return this.stop(), this._load(this._captionDict[alias]), this._currentDuration = this.isSlave ? this._calcCurrentDuration() : 1e3 * Audio.instance.getLength(alias), 
         this.seek(0), this._boundUpdate;
+    }, p.runWithAnimation = function(animTimeline) {
+        animTimeline.soundAlias && (this.stop(), this._animTimeline = animTimeline, this._load(this._captionDict[animTimeline.soundAlias]), 
+        cloudkid.OS.instance.addUpdateCallback("CK_Captions", this._updateToAnim.bind(this)));
     }, p._onSoundComplete = function() {
         var callback = this._completeCallback;
         this.stop(), callback && callback();
     }, p.stop = function() {
-        !this.isSlave && this._playing && (Audio.instance.stop(), this._playing = !1), this._lines = null, 
-        this._completeCallback = null, this._reset(), this._updateCaptions();
+        !this.isSlave && this._playing && (Audio.instance.stop(), this._playing = !1), this._animTimeline && (this._animTimeline = null, 
+        cloudkid.OS.instance.removeUpdateCallback("CK_Captions")), this._lines = null, this._completeCallback = null, 
+        this._reset(), this._updateCaptions();
     }, p.seek = function(time) {
         var currentTime = this._currentTime = time, lines = this._lines;
         if (!lines) return void this._updateCaptions();
@@ -81,6 +86,8 @@
             }
             currentTime > lines[i].end && (this._lastActiveLine = i, this._currentLine = -1);
         }
+    }, p._updateToAnim = function() {
+        !this._animTimeline || !this._animTimeline.playSound && !this._animTimeline.soundInst || this._animTimeline.soundInst && !this._animTimeline.soundInst.isValid ? this.stop() : this._animTimeline.soundInst && this.seek(this._animTimeline.soundInst.position);
     }, p._updatePercent = function(progress) {
         this._isDestroyed || (this._currentTime = progress * this._currentDuration, this._calcUpdate());
     }, p.updateTime = function(elapsed) {

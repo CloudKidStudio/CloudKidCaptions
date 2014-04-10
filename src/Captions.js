@@ -150,6 +150,15 @@
 	* @property {bool} textIsProp
 	*/
 	p.textIsProp = true;
+
+	/**
+	* An animation timeline from Animator or PixiAnimator. This is used for syncing captions to audio that is synced
+	* with with an animation.
+	*
+	* @private
+	* @property {cloudkid.AnimatorTimeline|cloudkid.PixiAnimator.AnimTimeline} _animTimeline.
+	*/
+	p._animTimeline = null;
 	
 	/**
 	* If this instance has been destroyed already 
@@ -449,7 +458,7 @@
 	*/
 	p.run = function(alias)
 	{
-		this._completeCallback = null;
+		this.stop();
 		this._load(this._captionDict[alias]);
 		if(this.isSlave)
 			this._currentDuration = this._calcCurrentDuration();
@@ -457,6 +466,22 @@
 			this._currentDuration = Audio.instance.getLength(alias) * 1000;
 		this.seek(0);
 		return this._boundUpdate;
+	};
+
+	/**
+	* Runs a caption synced to the audio of an animation.
+	*
+	* @public
+	* @method runWithAnimation
+	* @param {cloudkid.AnimatorTimeline|cloudkid.PixiAnimator.AnimTimeline} animTimeline The animation to sync to.
+	*/
+	p.runWithAnimation = function(animTimeline)
+	{
+		if(!animTimeline.soundAlias) return;//make sure animation has audio to begin with.
+		this.stop();
+		this._animTimeline = animTimeline;
+		this._load(this._captionDict[animTimeline.soundAlias]);
+		cloudkid.OS.instance.addUpdateCallback("CK_Captions", this._updateToAnim.bind(this));
 	};
 	
 	/** 
@@ -489,6 +514,11 @@
 		{
 			Audio.instance.stop();
 			this._playing = false;
+		}
+		if(this._animTimeline)
+		{
+			this._animTimeline = null;
+			cloudkid.OS.instance.removeUpdateCallback("CK_Captions");
 		}
 		this._lines = null;
 		this._completeCallback = null;
@@ -539,6 +569,28 @@
 				this._lastActiveLine = i;
 				this._currentLine = -1;
 			}
+		}
+	};
+
+	/**
+	* Callback for when a frame is entered, to sync to an animation's audio.
+	*
+	* @private
+	* @method _updateToAnim
+	*/
+	p._updateToAnim = function()
+	{
+		//this should catch most interruptions to caption or animation playback, but if an animation is stopped before the sound plays, then this
+		//might not catch it
+		if(!this._animTimeline || //no longer have a timeline to use
+			(!this._animTimeline.playSound && !this._animTimeline.soundInst) || //timeline has been cleaned up
+			(this._animTimeline.soundInst && !this._animTimeline.soundInst.isValid))//audio on timeline is no longer valid
+		{
+			this.stop();
+		}
+		else if(this._animTimeline.soundInst)//make sure the audio instance exists - if it doesn't, it hasn't been played yet
+		{
+			this.seek(this._animTimeline.soundInst.position);
 		}
 	};
 	
