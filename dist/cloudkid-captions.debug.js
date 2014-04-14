@@ -11,7 +11,7 @@
     p._playing = !1;
     var _instance = null, _muteAll = !1;
     p.isSlave = !1, p.textIsProp = !0, p._animTimeline = null, p._isDestroyed = !1, 
-    p._boundUpdate = null, p._boundComplete = null, Captions.VERSION = "1.0.1", 
+    p._boundUpdate = null, p._boundComplete = null, Captions.VERSION = "1.0.2", 
     Captions.init = function(captionDictionary, isSlave) {
         _instance = new Captions(captionDictionary, isSlave);
     }, Object.defineProperty(Captions, "instance", {
