@@ -1,7 +1,8 @@
 (function(){
 	
-	// Imports
-	var Audio = cloudkid.Audio;
+	// Global classes to use, they will actually be imported in the constructor
+	// so that we don't require a specific load order
+	var Audio, OS;
 	
 	/**
 	* A class that creates captioning for multimedia content. Captions are
@@ -24,14 +25,14 @@
 	* @class cloudkid.Captions
 	* @constructor
 	* @namespace cloudkid
-	* @param {Dictionary} captionDictionary The dictionary of captions
-	* @author Matt Moore, matt@cloudkid.com
+	* @param {Dictionary} [captionDictionary=null] The dictionary of captions
 	*/
-	var Captions = function(captionDictionary, isSlave)
+	var Captions = function(captionDictionary)
 	{
-		if(!Audio)
-			Audio = cloudkid.Audio;
-		this.isSlave = !!isSlave;
+		// Import external classes
+		Audio = cloudkid.Audio;
+		OS = cloudkid.OS;
+
 		this.initialize(captionDictionary);
 	};
 	
@@ -138,9 +139,9 @@
 	* Default is false.
 	*
 	* @private
-	* @property {bool} isSlave
+	* @property {bool} _isSlave
 	*/
-	p.isSlave = false;
+	p._isSlave = false;
 	
 	/**
 	* If text should be set on the text field with '.text = ' instead of '.setText()'.
@@ -198,12 +199,12 @@
 	*
 	* @public
 	* @method init
-	* @param captionDictionary An object set up in dictionary format of caption objects.
+	* @param {object} [captionDictionary=null] An object set up in dictionary format of caption objects.
 	* @static
 	*/
-	Captions.init = function(captionDictionary, isSlave)
+	Captions.init = function(captionDictionary)
 	{
-		_instance = new Captions(captionDictionary, isSlave);
+		_instance = new Captions(captionDictionary);
 	};
 	
 	/**
@@ -214,28 +215,29 @@
 	*  @public
 	*  @property {cloudkid.Captions} instance
 	*/
-	Object.defineProperty(Captions, "instance", {
-		get:function(){ return _instance; }
-	});
+	Object.defineProperty(
+		Captions, "instance", 
+		{
+			get:function(){ return _instance; }
+		}
+	);
 	
 	/**
 	* Constructor for caption.
 	*
 	* @private
 	* @method initialize
-	* @param captionDictionary An object set up in dictionary format of caption objects.
+	* @param [captionDictionary=null] An object set up in dictionary format of caption objects.
 	*/
 	p.initialize = function(captionDictionary)
 	{
 		this._lines = [];
 		
-		if (!this.isSlave && (!Audio || !Audio.instance))
+		if (!this._isSlave && (!Audio || !Audio.instance))
 		{
 			throw "cloudkid.Audio must be loaded before captions are available";
 		}
-		
-		//this._captionDict = captionDictionary || null;
-		this.setDictionary(captionDictionary);
+		this.setDictionary(captionDictionary || null);
 		this._boundUpdate = this._updatePercent.bind(this);
 		this._boundComplete = this._onSoundComplete.bind(this);
 	};
@@ -278,36 +280,36 @@
 	*/
 	p.setDictionary = function(dict)
 	{
-		if(dict)
+		this._captionDict = dict;
+
+		if(!dict) return;
+
+		var timeFormat = /[0-9]+\:[0-9]{2}\:[0-9]{2}\.[0-9]{3}/;
+		//Loop through each line and make sure the times are formatted correctly
+		for(var alias in dict)
 		{
-			this._captionDict = dict;
-			var timeFormat = /[0-9]+\:[0-9]{2}\:[0-9]{2}\.[0-9]{3}/;
-			//Loop through each line and make sure the times are formatted correctly
-			for(var alias in dict)
+			var lines = Array.isArray(dict[alias]) ? dict[alias] : dict[alias].lines;
+			if(!lines)
 			{
-				var lines = Array.isArray(dict[alias]) ? dict[alias] : dict[alias].lines;
-				if(!lines)
+				Debug.log("alias '" + alias + "' has no lines!");
+				continue;
+			}
+			for(var i = 0, len = lines.length; i < len; ++i)
+			{
+				var l = lines[i];
+				if(typeof l.start == "string")
 				{
-					Debug.log("alias '" + alias + "' has no lines!");
-					continue;
+					if(timeFormat.test(l.start))
+						l.start = _timeCodeToMilliseconds(l.start);
+					else
+						l.start = parseInt(l.start, 10);
 				}
-				for(var i = 0, len = lines.length; i < len; ++i)
+				if(typeof l.end == "string")
 				{
-					var l = lines[i];
-					if(typeof l.start == "string")
-					{
-						if(timeFormat.test(l.start))
-							l.start = _timeCodeToMilliseconds(l.start);
-						else
-							l.start = parseInt(l.start, 10);
-					}
-					if(typeof l.end == "string")
-					{
-						if(timeFormat.test(l.end))
-							l.end = _timeCodeToMilliseconds(l.end);
-						else
-							l.end = parseInt(l.end, 10);
-					}
+					if(timeFormat.test(l.end))
+						l.end = _timeCodeToMilliseconds(l.end);
+					else
+						l.end = parseInt(l.end, 10);
 				}
 			}
 		}
@@ -413,15 +415,37 @@
 		return this._playing; 
 	};
 	
-	p._calcCurrentDuration = function()
+	/**
+	*  Calculate the total duration of the current caption
+	*  @private
+	*  @method _getTotalDuration
+	*/
+	p._getTotalDuration = function()
 	{
 		var lines = this._lines;
 		return lines ? lines[lines.length - 1].end : 0;
 	};
 	
+	/**
+	*  Get the current duration of the current caption
+	*  @property {int} currentDuration
+	*  @readOnly
+	*/
 	Object.defineProperty(p, "currentDuration",
 	{
 		get: function() { return this._currentDuration; }
+	});
+
+	/**
+	*  If this Captions instance is a 'slave', that doesn't run cloudkid.Audio
+	*  and must have update() called manually (and passed milliseconds).
+	*  @property {bool} isSlave
+	*  @default false
+	*/
+	Object.defineProperty(p, "isSlave",
+	{
+		get: function() { return this._isSlave; },
+		set: function(isSlave) { this._isSlave = isSlave; }
 	});
 	
 	/**
@@ -437,18 +461,23 @@
 		this._completeCallback = callback;
 		this._playing = true;
 		this._load(this._captionDict[alias]);
-		if(this.isSlave)
-			this._currentDuration = this._calcCurrentDuration();
+
+		if(this._isSlave)
+		{
+			this._currentDuration = this._getTotalDuration();
+		}
 		else
 		{
 			this._currentDuration = Audio.instance.getLength(alias) * 1000;
+
+			// Backward compatibility, but you should use the VOPlayer in the Sound or Audio libraries
 			Audio.instance.play(alias, this._boundComplete, null, this._boundUpdate);
 		}
 		this.seek(0);
 	};
 	
 	/** 
-	* Starts caption playback without controlling the sound. Returns the update
+	* Starts caption playback without controlling the sound or animation. Returns the update
 	* function that should be called to control the Captions object.
 	* 
 	* @public
@@ -458,19 +487,22 @@
 	*/
 	p.run = function(alias)
 	{
+		if (!this._isSlave)
+		{
+			throw "Only can use Captions.run() as a slave";
+		}
 		this.stop();
 		this._load(this._captionDict[alias]);
-		if(this.isSlave)
-			this._currentDuration = this._calcCurrentDuration();
-		else
-			this._currentDuration = Audio.instance.getLength(alias) * 1000;
+
+		this._currentDuration = this._getTotalDuration();
 		this.seek(0);
+
 		return this._boundUpdate;
 	};
 
 	/**
 	* Runs a caption synced to the audio of an animation.
-	*
+	* @deprecated Set Animator.captions or PixiAnimator.captions to set the captions object to use
 	* @public
 	* @method runWithAnimation
 	* @param {cloudkid.AnimatorTimeline|cloudkid.PixiAnimator.AnimTimeline} animTimeline The animation to sync to.
@@ -481,7 +513,7 @@
 		this.stop();
 		this._animTimeline = animTimeline;
 		this._load(this._captionDict[animTimeline.soundAlias]);
-		cloudkid.OS.instance.addUpdateCallback("CK_Captions", this._updateToAnim.bind(this));
+		OS.instance.addUpdateCallback("CK_Captions", this._updateToAnim.bind(this));
 	};
 	
 	/** 
@@ -510,7 +542,7 @@
 	*/
 	p.stop = function()
 	{
-		if(!this.isSlave && this._playing)
+		if(!this._isSlave && this._playing)
 		{
 			Audio.instance.stop();
 			this._playing = false;
@@ -518,7 +550,7 @@
 		if(this._animTimeline)
 		{
 			this._animTimeline = null;
-			cloudkid.OS.instance.removeUpdateCallback("CK_Captions");
+			OS.instance.removeUpdateCallback("CK_Captions");
 		}
 		this._lines = null;
 		this._completeCallback = null;

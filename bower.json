@@ -1,6 +1,6 @@
 {
     "name": "cloudkid-captions",
-    "version": "1.0.2",
+    "version": "1.1.0",
     "main": "dist/cloudkid-captions.min.js",
     "dependencies": {
         "cloudkid-os" : "*",
