@@ -3,8 +3,8 @@
         var lastPeriodIndex = input.lastIndexOf("."), ms = parseInt(input.substr(lastPeriodIndex + 1), 10), parts = input.substr(0, lastPeriodIndex).split(":"), h = 36e5 * parseInt(parts[0], 10), m = 6e3 * parseInt(parts[1], 10), s = 1e3 * parseInt(parts[2], 10);
         return h + m + s + ms;
     }
-    var Audio, OS, Captions = function(captionDictionary) {
-        Audio = cloudkid.Audio, OS = cloudkid.OS, this.initialize(captionDictionary);
+    var Audio, OS, Captions = function(captionDictionary, field) {
+        Audio = cloudkid.Audio, OS = cloudkid.OS, this.initialize(captionDictionary, field);
     }, p = Captions.prototype;
     p._captionDict = null, p._textField = null, p._completeCallback = null, p._lines = null, 
     p._currentDuration = 0, p._currentTime = 0, p._currentLine = -1, p._lastActiveLine = -1, 
@@ -12,16 +12,15 @@
     var _instance = null, _muteAll = !1;
     p._isSlave = !1, p.textIsProp = !0, p._animTimeline = null, p._isDestroyed = !1, 
     p._boundUpdate = null, p._boundComplete = null, Captions.VERSION = "1.1.0", 
-    Captions.init = function(captionDictionary) {
-        _instance = new Captions(captionDictionary);
+    Captions.init = function(captionDictionary, field) {
+        _instance = new Captions(captionDictionary, field);
     }, Object.defineProperty(Captions, "instance", {
         get: function() {
             return _instance;
         }
-    }), p.initialize = function(captionDictionary) {
-        if (this._lines = [], !(this._isSlave || Audio && Audio.instance)) throw "cloudkid.Audio must be loaded before captions are available";
-        this.setDictionary(captionDictionary || null), this._boundUpdate = this._updatePercent.bind(this), 
-        this._boundComplete = this._onSoundComplete.bind(this);
+    }), p.initialize = function(captionDictionary, field) {
+        this._lines = [], this.setDictionary(captionDictionary || null), this.setTextField(field), 
+        this._boundUpdate = this._updatePercent.bind(this), this._boundComplete = this._onSoundComplete.bind(this);
     }, Captions.setMuteAll = function(muteAll) {
         _muteAll = muteAll, _instance && _instance._updateCaptions();
     }, Captions.getMuteAll = function() {
@@ -44,7 +43,8 @@
     }, p.hasCaption = function(alias) {
         return this._captionDict ? !!this._captionDict[alias] : !1;
     }, p._load = function(data) {
-        return this._isDestroyed ? void 0 : (this._reset(), data ? void (this._lines = data.lines) : void (this._lines = null));
+        return this._isDestroyed ? void 0 : (this._reset(), data ? (this._lines = data.lines, 
+        void 0) : (this._lines = null, void 0));
     }, p._reset = function() {
         this._currentLine = -1, this._lastActiveLine = -1;
     }, p.isPlaying = function() {
@@ -64,13 +64,13 @@
             this._isSlave = isSlave;
         }
     }), p.play = function(alias, callback) {
-        this._completeCallback = callback, this._playing = !0, this._load(this._captionDict[alias]), 
+        return this.stop(), this._completeCallback = callback, this._playing = !0, this._load(this._captionDict[alias]), 
         this._isSlave ? this._currentDuration = this._getTotalDuration() : (this._currentDuration = 1e3 * Audio.instance.getLength(alias), 
-        Audio.instance.play(alias, this._boundComplete, null, this._boundUpdate)), this.seek(0);
+        Audio.instance.play(alias, this._boundComplete, null, this._boundUpdate)), this.seek(0), 
+        this._isSlave ? this._boundUpdate : void 0;
     }, p.run = function(alias) {
-        if (!this._isSlave) throw "Only can use Captions.run() as a slave";
-        return this.stop(), this._load(this._captionDict[alias]), this._currentDuration = this._getTotalDuration(), 
-        this.seek(0), this._boundUpdate;
+        if (!this._isSlave) throw "Captions.isSlave needs to be set to tru to use run";
+        return this.play(alias);
     }, p.runWithAnimation = function(animTimeline) {
         animTimeline.soundAlias && (this.stop(), this._animTimeline = animTimeline, this._load(this._captionDict[animTimeline.soundAlias]), 
         OS.instance.addUpdateCallback("CK_Captions", this._updateToAnim.bind(this)));
@@ -83,9 +83,9 @@
         this._lines = null, this._completeCallback = null, this._reset(), this._updateCaptions();
     }, p.seek = function(time) {
         var currentTime = this._currentTime = time, lines = this._lines;
-        if (!lines) return void this._updateCaptions();
+        if (!lines) return this._updateCaptions(), void 0;
         if (currentTime < lines[0].start) return currentLine = this._lastActiveLine = -1, 
-        void this._updateCaptions();
+        this._updateCaptions(), void 0;
         for (var len = lines.length, i = 0; len > i; i++) {
             if (currentTime >= lines[i].start && currentTime <= lines[i].end) {
                 this._currentLine = this._lastActiveLine = i, this._updateCaptions();

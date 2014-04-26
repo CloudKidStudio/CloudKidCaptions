@@ -26,14 +26,15 @@
 	* @constructor
 	* @namespace cloudkid
 	* @param {Dictionary} [captionDictionary=null] The dictionary of captions
+	* @param {createjs.Text} [field=null] An text field to use as the output for this captions object
 	*/
-	var Captions = function(captionDictionary)
+	var Captions = function(captionDictionary, field)
 	{
 		// Import external classes
 		Audio = cloudkid.Audio;
 		OS = cloudkid.OS;
 
-		this.initialize(captionDictionary);
+		this.initialize(captionDictionary, field);
 	};
 	
 	/** 
@@ -200,11 +201,12 @@
 	* @public
 	* @method init
 	* @param {object} [captionDictionary=null] An object set up in dictionary format of caption objects.
+	* @param {createjs.Text} [field=null] An text field to use as the output for this captions object
 	* @static
 	*/
-	Captions.init = function(captionDictionary)
+	Captions.init = function(captionDictionary, field)
 	{
-		_instance = new Captions(captionDictionary);
+		_instance = new Captions(captionDictionary, field);
 	};
 	
 	/**
@@ -228,16 +230,13 @@
 	* @private
 	* @method initialize
 	* @param [captionDictionary=null] An object set up in dictionary format of caption objects.
+	* @param {createjs.Text} [field=null] An text field to use as the output for this captions object
 	*/
-	p.initialize = function(captionDictionary)
+	p.initialize = function(captionDictionary, field)
 	{
 		this._lines = [];
-		
-		if (!this._isSlave && (!Audio || !Audio.instance))
-		{
-			throw "cloudkid.Audio must be loaded before captions are available";
-		}
 		this.setDictionary(captionDictionary || null);
+		this.setTextField(field);
 		this._boundUpdate = this._updatePercent.bind(this);
 		this._boundComplete = this._onSoundComplete.bind(this);
 	};
@@ -455,14 +454,16 @@
 	*  @method play
 	*  @param {String} alias The desired caption's alias
 	*  @param {function} callback The function to call when the caption is finished playing
+	*  @return {function} The update function that should be called if captions isSlave is true
 	*/
 	p.play = function(alias, callback)
 	{
+		this.stop();
 		this._completeCallback = callback;
 		this._playing = true;
 		this._load(this._captionDict[alias]);
 
-		if(this._isSlave)
+		if (this._isSlave)
 		{
 			this._currentDuration = this._getTotalDuration();
 		}
@@ -474,12 +475,17 @@
 			Audio.instance.play(alias, this._boundComplete, null, this._boundUpdate);
 		}
 		this.seek(0);
+
+		if (this._isSlave)
+		{
+			return this._boundUpdate;
+		}
 	};
 	
 	/** 
 	* Starts caption playback without controlling the sound or animation. Returns the update
 	* function that should be called to control the Captions object.
-	* 
+	* @deprecated Use play(alias) instead, isSlave should be set to true
 	* @public
 	* @method run
 	* @param {String} alias The caption/sound alias
@@ -489,15 +495,9 @@
 	{
 		if (!this._isSlave)
 		{
-			throw "Only can use Captions.run() as a slave";
+			throw "Captions.isSlave needs to be set to tru to use run";
 		}
-		this.stop();
-		this._load(this._captionDict[alias]);
-
-		this._currentDuration = this._getTotalDuration();
-		this.seek(0);
-
-		return this._boundUpdate;
+		return this.play(alias);
 	};
 
 	/**
