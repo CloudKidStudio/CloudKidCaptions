@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 1.0.0</em>
+            <em>API Docs for: 1.1.0</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -90,7 +90,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/src_Captions.js.html#l6"><code>src&#x2F;Captions.js:6</code></a>
+            Defined in: <a href="../files/src_Captions.js.html#l7"><code>src&#x2F;Captions.js:7</code></a>
         </div>
     
 
@@ -120,7 +120,13 @@ is a singleton class and depends on <code>cloudkid.Audio</code> for the progress
             
                 <li class="arg">
                     
-                        <code>captionDictionary</code>
+                        <code class="optional">[captionDictionary=null]</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[field=null]</code>
                     
                 </li>
             
@@ -153,7 +159,7 @@ is a singleton class and depends on <code>cloudkid.Audio</code> for the progress
             
         
         
-        <a href="../files/src_Captions.js.html#l6"><code>src&#x2F;Captions.js:6</code></a>
+        <a href="../files/src_Captions.js.html#l7"><code>src&#x2F;Captions.js:7</code></a>
         
         </p>
 
@@ -175,14 +181,32 @@ is a singleton class and depends on <code>cloudkid.Audio</code> for the progress
             
                 <li class="param">
                     
-                        <code class="param-name">captionDictionary</code>
+                        <code class="param-name optional">[captionDictionary=null]</code>
                         <span class="type">Dictionary</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
                     
 
                     
 
                     <div class="param-description">
                         <p>The dictionary of captions</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[field=null]</code>
+                        <span class="type">createjs.Text</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>An text field to use as the output for this captions object</p>
 
                     </div>
 
@@ -252,6 +276,13 @@ is a singleton class and depends on <code>cloudkid.Audio</code> for the progress
                             </li>
                         
                             <li class="index-item method private">
+                                <a href="#method__getTotalDuration">_getTotalDuration</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method private">
                                 <a href="#method__load">_load</a>
 
                                 
@@ -288,6 +319,13 @@ is a singleton class and depends on <code>cloudkid.Audio</code> for the progress
                         
                             <li class="index-item method private">
                                 <a href="#method__updatePercent">_updatePercent</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method private">
+                                <a href="#method__updateToAnim">_updateToAnim</a>
 
                                 
                                 
@@ -346,10 +384,21 @@ is a singleton class and depends on <code>cloudkid.Audio</code> for the progress
                                 
                             </li>
                         
-                            <li class="index-item method public">
+                            <li class="index-item method public deprecated">
                                 <a href="#method_run">run</a>
 
                                 
+                                
+                                    <span class="flag deprecated">deprecated</span>
+                                
+                            </li>
+                        
+                            <li class="index-item method public deprecated">
+                                <a href="#method_runWithAnimation">runWithAnimation</a>
+
+                                
+                                
+                                    <span class="flag deprecated">deprecated</span>
                                 
                             </li>
                         
@@ -406,6 +455,13 @@ is a singleton class and depends on <code>cloudkid.Audio</code> for the progress
                     <h3>Properties</h3>
 
                     <ul class="index-list properties">
+                        
+                            <li class="index-item property private">
+                                <a href="#property__animTimeline.">_animTimeline.</a>
+
+                                
+                                
+                            </li>
                         
                             <li class="index-item property private">
                                 <a href="#property__boundComplete">_boundComplete</a>
@@ -471,6 +527,13 @@ is a singleton class and depends on <code>cloudkid.Audio</code> for the progress
                             </li>
                         
                             <li class="index-item property private">
+                                <a href="#property__isSlave">_isSlave</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property private">
                                 <a href="#property__lastActiveLine">_lastActiveLine</a>
 
                                 
@@ -505,6 +568,13 @@ is a singleton class and depends on <code>cloudkid.Audio</code> for the progress
                                 
                             </li>
                         
+                            <li class="index-item property">
+                                <a href="#property_currentDuration">currentDuration</a>
+
+                                
+                                
+                            </li>
+                        
                             <li class="index-item property public">
                                 <a href="#property_instance">instance</a>
 
@@ -514,7 +584,7 @@ is a singleton class and depends on <code>cloudkid.Audio</code> for the progress
                                 
                             </li>
                         
-                            <li class="index-item property private">
+                            <li class="index-item property">
                                 <a href="#property_isSlave">isSlave</a>
 
                                 
@@ -592,7 +662,7 @@ is a singleton class and depends on <code>cloudkid.Audio</code> for the progress
             
         
         
-        <a href="../files/src_Captions.js.html#l572"><code>src&#x2F;Captions.js:572</code></a>
+        <a href="../files/src_Captions.js.html#l658"><code>src&#x2F;Captions.js:658</code></a>
         
         </p>
 
@@ -604,6 +674,63 @@ is a singleton class and depends on <code>cloudkid.Audio</code> for the progress
 
     <div class="description">
         <p>Calculates the captions after increasing the current time.</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__getTotalDuration" class="method item private">
+    <h3 class="name"><code>_getTotalDuration</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_Captions.js.html#l417"><code>src&#x2F;Captions.js:417</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Calculate the total duration of the current caption</p>
 
     </div>
 
@@ -659,7 +786,7 @@ is a singleton class and depends on <code>cloudkid.Audio</code> for the progress
             
         
         
-        <a href="../files/src_Captions.js.html#l337"><code>src&#x2F;Captions.js:337</code></a>
+        <a href="../files/src_Captions.js.html#l349"><code>src&#x2F;Captions.js:349</code></a>
         
         </p>
 
@@ -740,7 +867,7 @@ is a singleton class and depends on <code>cloudkid.Audio</code> for the progress
             
         
         
-        <a href="../files/src_Captions.js.html#l460"><code>src&#x2F;Captions.js:460</code></a>
+        <a href="../files/src_Captions.js.html#l519"><code>src&#x2F;Captions.js:519</code></a>
         
         </p>
 
@@ -798,7 +925,7 @@ a cloudkid.AudioAnimation finishes playing, as then stop() is called.</p>
             
         
         
-        <a href="../files/src_Captions.js.html#l360"><code>src&#x2F;Captions.js:360</code></a>
+        <a href="../files/src_Captions.js.html#l372"><code>src&#x2F;Captions.js:372</code></a>
         
         </p>
 
@@ -869,7 +996,7 @@ a cloudkid.AudioAnimation finishes playing, as then stop() is called.</p>
             
         
         
-        <a href="../files/src_Captions.js.html#l372"><code>src&#x2F;Captions.js:372</code></a>
+        <a href="../files/src_Captions.js.html#l384"><code>src&#x2F;Captions.js:384</code></a>
         
         </p>
 
@@ -965,7 +1092,7 @@ format is in HH:MM:ss:mmm</p>
             
         
         
-        <a href="../files/src_Captions.js.html#l609"><code>src&#x2F;Captions.js:609</code></a>
+        <a href="../files/src_Captions.js.html#l695"><code>src&#x2F;Captions.js:695</code></a>
         
         </p>
 
@@ -1032,7 +1159,7 @@ format is in HH:MM:ss:mmm</p>
             
         
         
-        <a href="../files/src_Captions.js.html#l543"><code>src&#x2F;Captions.js:543</code></a>
+        <a href="../files/src_Captions.js.html#l629"><code>src&#x2F;Captions.js:629</code></a>
         
         </p>
 
@@ -1079,6 +1206,63 @@ format is in HH:MM:ss:mmm</p>
 </div>
 
                 
+                    <div id="method__updateToAnim" class="method item private">
+    <h3 class="name"><code>_updateToAnim</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_Captions.js.html#l607"><code>src&#x2F;Captions.js:607</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Callback for when a frame is entered, to sync to an animation&#39;s audio.</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
                     <div id="method_destroy" class="method item">
     <h3 class="name"><code>destroy</code></h3>
 
@@ -1111,7 +1295,7 @@ format is in HH:MM:ss:mmm</p>
             
         
         
-        <a href="../files/src_Captions.js.html#l627"><code>src&#x2F;Captions.js:627</code></a>
+        <a href="../files/src_Captions.js.html#l713"><code>src&#x2F;Captions.js:713</code></a>
         
         </p>
 
@@ -1174,7 +1358,7 @@ format is in HH:MM:ss:mmm</p>
             
         
         
-        <a href="../files/src_Captions.js.html#l248"><code>src&#x2F;Captions.js:248</code></a>
+        <a href="../files/src_Captions.js.html#l260"><code>src&#x2F;Captions.js:260</code></a>
         
         </p>
 
@@ -1257,7 +1441,7 @@ format is in HH:MM:ss:mmm</p>
             
         
         
-        <a href="../files/src_Captions.js.html#l325"><code>src&#x2F;Captions.js:325</code></a>
+        <a href="../files/src_Captions.js.html#l337"><code>src&#x2F;Captions.js:337</code></a>
         
         </p>
 
@@ -1327,7 +1511,13 @@ format is in HH:MM:ss:mmm</p>
             
                 <li class="arg">
                     
-                        <code>captionDictionary</code>
+                        <code class="optional">[captionDictionary=null]</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[field=null]</code>
                     
                 </li>
             
@@ -1364,7 +1554,7 @@ format is in HH:MM:ss:mmm</p>
             
         
         
-        <a href="../files/src_Captions.js.html#l185"><code>src&#x2F;Captions.js:185</code></a>
+        <a href="../files/src_Captions.js.html#l198"><code>src&#x2F;Captions.js:198</code></a>
         
         </p>
 
@@ -1387,14 +1577,32 @@ format is in HH:MM:ss:mmm</p>
             
                 <li class="param">
                     
-                        <code class="param-name">captionDictionary</code>
+                        <code class="param-name optional">[captionDictionary=null]</code>
                         <span class="type">Object</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
                     
 
                     
 
                     <div class="param-description">
                         <p>An object set up in dictionary format of caption objects.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[field=null]</code>
+                        <span class="type">createjs.Text</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>An text field to use as the output for this captions object</p>
 
                     </div>
 
@@ -1420,7 +1628,13 @@ format is in HH:MM:ss:mmm</p>
             
                 <li class="arg">
                     
-                        <code>captionDictionary</code>
+                        <code class="optional">[captionDictionary=null]</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[field=null]</code>
                     
                 </li>
             
@@ -1455,7 +1669,7 @@ format is in HH:MM:ss:mmm</p>
             
         
         
-        <a href="../files/src_Captions.js.html#l210"><code>src&#x2F;Captions.js:210</code></a>
+        <a href="../files/src_Captions.js.html#l227"><code>src&#x2F;Captions.js:227</code></a>
         
         </p>
 
@@ -1478,14 +1692,32 @@ format is in HH:MM:ss:mmm</p>
             
                 <li class="param">
                     
-                        <code class="param-name">captionDictionary</code>
+                        <code class="param-name optional">[captionDictionary=null]</code>
                         <span class="type">Object</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
                     
 
                     
 
                     <div class="param-description">
                         <p>An object set up in dictionary format of caption objects.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[field=null]</code>
+                        <span class="type">createjs.Text</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>An text field to use as the output for this captions object</p>
 
                     </div>
 
@@ -1540,7 +1772,7 @@ format is in HH:MM:ss:mmm</p>
             
         
         
-        <a href="../files/src_Captions.js.html#l393"><code>src&#x2F;Captions.js:393</code></a>
+        <a href="../files/src_Captions.js.html#l405"><code>src&#x2F;Captions.js:405</code></a>
         
         </p>
 
@@ -1601,6 +1833,10 @@ format is in HH:MM:ss:mmm</p>
     
 
     
+        <span class="returns-inline">
+            <span class="type">Function</span>
+        </span>
+    
 
     
 
@@ -1627,7 +1863,7 @@ format is in HH:MM:ss:mmm</p>
             
         
         
-        <a href="../files/src_Captions.js.html#l416"><code>src&#x2F;Captions.js:416</code></a>
+        <a href="../files/src_Captions.js.html#l450"><code>src&#x2F;Captions.js:450</code></a>
         
         </p>
 
@@ -1685,12 +1921,26 @@ format is in HH:MM:ss:mmm</p>
     
 
     
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Function</span>:
+                    
+                    <p>The update function that should be called if captions isSlave is true</p>
+
+                
+            </div>
+        </div>
+    
 
     
 </div>
 
                 
-                    <div id="method_run" class="method item public">
+                    <div id="method_run" class="method item public deprecated">
     <h3 class="name"><code>run</code></h3>
 
     
@@ -1713,6 +1963,8 @@ format is in HH:MM:ss:mmm</p>
         </span>
     
 
+    
+        <span class="flag deprecated" title="Use play(alias) instead, isSlave should be set to true">deprecated</span>
     
 
     
@@ -1738,18 +1990,20 @@ format is in HH:MM:ss:mmm</p>
             
         
         
-        <a href="../files/src_Captions.js.html#l439"><code>src&#x2F;Captions.js:439</code></a>
+        <a href="../files/src_Captions.js.html#l485"><code>src&#x2F;Captions.js:485</code></a>
         
         </p>
 
 
+        
+            <p>Deprecated: Use play(alias) instead, isSlave should be set to true</p>
         
 
         
     </div>
 
     <div class="description">
-        <p>Starts caption playback without controlling the sound. Returns the update
+        <p>Starts caption playback without controlling the sound or animation. Returns the update
 function that should be called to control the Captions object.</p>
 
     </div>
@@ -1800,6 +2054,101 @@ function that should be called to control the Captions object.</p>
 </div>
 
                 
+                    <div id="method_runWithAnimation" class="method item public deprecated">
+    <h3 class="name"><code>runWithAnimation</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>animTimeline</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+        <span class="flag deprecated" title="Set Animator.captions or PixiAnimator.captions to set the captions object to use">deprecated</span>
+    
+
+    
+        <span class="flag public">public</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_Captions.js.html#l503"><code>src&#x2F;Captions.js:503</code></a>
+        
+        </p>
+
+
+        
+            <p>Deprecated: Set Animator.captions or PixiAnimator.captions to set the captions object to use</p>
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Runs a caption synced to the audio of an animation.</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">animTimeline</code>
+                        <span class="type">cloudkid.AnimatorTimeline | cloudkid.PixiAnimator.AnimTimeline</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The animation to sync to.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
                     <div id="method_seek" class="method item public">
     <h3 class="name"><code>seek</code></h3>
 
@@ -1844,7 +2193,7 @@ function that should be called to control the Captions object.</p>
             
         
         
-        <a href="../files/src_Captions.js.html#l497"><code>src&#x2F;Captions.js:497</code></a>
+        <a href="../files/src_Captions.js.html#l561"><code>src&#x2F;Captions.js:561</code></a>
         
         </p>
 
@@ -1935,7 +2284,7 @@ function that should be called to control the Captions object.</p>
             
         
         
-        <a href="../files/src_Captions.js.html#l261"><code>src&#x2F;Captions.js:261</code></a>
+        <a href="../files/src_Captions.js.html#l273"><code>src&#x2F;Captions.js:273</code></a>
         
         </p>
 
@@ -2028,7 +2377,7 @@ function that should be called to control the Captions object.</p>
             
         
         
-        <a href="../files/src_Captions.js.html#l232"><code>src&#x2F;Captions.js:232</code></a>
+        <a href="../files/src_Captions.js.html#l244"><code>src&#x2F;Captions.js:244</code></a>
         
         </p>
 
@@ -2119,7 +2468,7 @@ function that should be called to control the Captions object.</p>
             
         
         
-        <a href="../files/src_Captions.js.html#l305"><code>src&#x2F;Captions.js:305</code></a>
+        <a href="../files/src_Captions.js.html#l317"><code>src&#x2F;Captions.js:317</code></a>
         
         </p>
 
@@ -2201,7 +2550,7 @@ Only one text field can be controlled at a time.</p>
             
         
         
-        <a href="../files/src_Captions.js.html#l477"><code>src&#x2F;Captions.js:477</code></a>
+        <a href="../files/src_Captions.js.html#l536"><code>src&#x2F;Captions.js:536</code></a>
         
         </p>
 
@@ -2269,7 +2618,7 @@ cloudkid.AudioAnimation when it is finished.</p>
             
         
         
-        <a href="../files/src_Captions.js.html#l557"><code>src&#x2F;Captions.js:557</code></a>
+        <a href="../files/src_Captions.js.html#l643"><code>src&#x2F;Captions.js:643</code></a>
         
         </p>
 
@@ -2325,6 +2674,54 @@ Call this to advance the caption by a given amount of time.</p>
                 <h2 class="off-left">Properties</h2>
 
                 
+                    <div id="property__animTimeline." class="property item private">
+    <h3 class="name"><code>_animTimeline.</code></h3>
+    <span class="type">cloudkid.AnimatorTimeline | cloudkid.PixiAnimator.AnimTimeline</span>
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_Captions.js.html#l156"><code>src&#x2F;Captions.js:156</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>An animation timeline from Animator or PixiAnimator. This is used for syncing captions to audio that is synced
+with with an animation.</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
                     <div id="property__boundComplete" class="property item private">
     <h3 class="name"><code>_boundComplete</code></h3>
     <span class="type">Function</span>
@@ -2350,7 +2747,7 @@ Call this to advance the caption by a given amount of time.</p>
             
         
         
-        <a href="../files/src_Captions.js.html#l168"><code>src&#x2F;Captions.js:168</code></a>
+        <a href="../files/src_Captions.js.html#l181"><code>src&#x2F;Captions.js:181</code></a>
         
         </p>
 
@@ -2397,7 +2794,7 @@ Call this to advance the caption by a given amount of time.</p>
             
         
         
-        <a href="../files/src_Captions.js.html#l160"><code>src&#x2F;Captions.js:160</code></a>
+        <a href="../files/src_Captions.js.html#l173"><code>src&#x2F;Captions.js:173</code></a>
         
         </p>
 
@@ -2444,7 +2841,7 @@ Call this to advance the caption by a given amount of time.</p>
             
         
         
-        <a href="../files/src_Captions.js.html#l44"><code>src&#x2F;Captions.js:44</code></a>
+        <a href="../files/src_Captions.js.html#l48"><code>src&#x2F;Captions.js:48</code></a>
         
         </p>
 
@@ -2491,7 +2888,7 @@ Call this to advance the caption by a given amount of time.</p>
             
         
         
-        <a href="../files/src_Captions.js.html#l61"><code>src&#x2F;Captions.js:61</code></a>
+        <a href="../files/src_Captions.js.html#l65"><code>src&#x2F;Captions.js:65</code></a>
         
         </p>
 
@@ -2538,7 +2935,7 @@ Call this to advance the caption by a given amount of time.</p>
             
         
         
-        <a href="../files/src_Captions.js.html#l77"><code>src&#x2F;Captions.js:77</code></a>
+        <a href="../files/src_Captions.js.html#l81"><code>src&#x2F;Captions.js:81</code></a>
         
         </p>
 
@@ -2585,7 +2982,7 @@ Call this to advance the caption by a given amount of time.</p>
             
         
         
-        <a href="../files/src_Captions.js.html#l93"><code>src&#x2F;Captions.js:93</code></a>
+        <a href="../files/src_Captions.js.html#l97"><code>src&#x2F;Captions.js:97</code></a>
         
         </p>
 
@@ -2632,7 +3029,7 @@ Call this to advance the caption by a given amount of time.</p>
             
         
         
-        <a href="../files/src_Captions.js.html#l85"><code>src&#x2F;Captions.js:85</code></a>
+        <a href="../files/src_Captions.js.html#l89"><code>src&#x2F;Captions.js:89</code></a>
         
         </p>
 
@@ -2679,7 +3076,7 @@ Call this to advance the caption by a given amount of time.</p>
             
         
         
-        <a href="../files/src_Captions.js.html#l117"><code>src&#x2F;Captions.js:117</code></a>
+        <a href="../files/src_Captions.js.html#l121"><code>src&#x2F;Captions.js:121</code></a>
         
         </p>
 
@@ -2726,7 +3123,7 @@ Call this to advance the caption by a given amount of time.</p>
             
         
         
-        <a href="../files/src_Captions.js.html#l152"><code>src&#x2F;Captions.js:152</code></a>
+        <a href="../files/src_Captions.js.html#l165"><code>src&#x2F;Captions.js:165</code></a>
         
         </p>
 
@@ -2737,6 +3134,55 @@ Call this to advance the caption by a given amount of time.</p>
 
     <div class="description">
         <p>If this instance has been destroyed already</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property__isSlave" class="property item private">
+    <h3 class="name"><code>_isSlave</code></h3>
+    <span class="type">Bool</span>
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_Captions.js.html#l137"><code>src&#x2F;Captions.js:137</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>If this Captions instance is a &#39;slave&#39;, that doesn&#39;t run cloudkid.Audio
+and must have update() called manually (and passed milliseconds).
+Default is false.</p>
 
     </div>
 
@@ -2773,7 +3219,7 @@ Call this to advance the caption by a given amount of time.</p>
             
         
         
-        <a href="../files/src_Captions.js.html#l101"><code>src&#x2F;Captions.js:101</code></a>
+        <a href="../files/src_Captions.js.html#l105"><code>src&#x2F;Captions.js:105</code></a>
         
         </p>
 
@@ -2820,7 +3266,7 @@ Call this to advance the caption by a given amount of time.</p>
             
         
         
-        <a href="../files/src_Captions.js.html#l69"><code>src&#x2F;Captions.js:69</code></a>
+        <a href="../files/src_Captions.js.html#l73"><code>src&#x2F;Captions.js:73</code></a>
         
         </p>
 
@@ -2867,7 +3313,7 @@ Call this to advance the caption by a given amount of time.</p>
             
         
         
-        <a href="../files/src_Captions.js.html#l125"><code>src&#x2F;Captions.js:125</code></a>
+        <a href="../files/src_Captions.js.html#l129"><code>src&#x2F;Captions.js:129</code></a>
         
         </p>
 
@@ -2914,7 +3360,7 @@ Call this to advance the caption by a given amount of time.</p>
             
         
         
-        <a href="../files/src_Captions.js.html#l109"><code>src&#x2F;Captions.js:109</code></a>
+        <a href="../files/src_Captions.js.html#l113"><code>src&#x2F;Captions.js:113</code></a>
         
         </p>
 
@@ -2961,7 +3407,7 @@ Call this to advance the caption by a given amount of time.</p>
             
         
         
-        <a href="../files/src_Captions.js.html#l52"><code>src&#x2F;Captions.js:52</code></a>
+        <a href="../files/src_Captions.js.html#l56"><code>src&#x2F;Captions.js:56</code></a>
         
         </p>
 
@@ -2973,6 +3419,51 @@ Call this to advance the caption by a given amount of time.</p>
     <div class="description">
         <p>A reference to the CreateJS Text object that Captions should be controlling. 
     Only one text field can be controlled at a time.</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_currentDuration" class="property item">
+    <h3 class="name"><code>currentDuration</code></h3>
+    <span class="type">Int</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_Captions.js.html#l428"><code>src&#x2F;Captions.js:428</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Get the current duration of the current caption</p>
 
     </div>
 
@@ -3011,7 +3502,7 @@ Call this to advance the caption by a given amount of time.</p>
             
         
         
-        <a href="../files/src_Captions.js.html#l198"><code>src&#x2F;Captions.js:198</code></a>
+        <a href="../files/src_Captions.js.html#l212"><code>src&#x2F;Captions.js:212</code></a>
         
         </p>
 
@@ -3033,14 +3524,12 @@ Call this to advance the caption by a given amount of time.</p>
 </div>
 
                 
-                    <div id="property_isSlave" class="property item private">
+                    <div id="property_isSlave" class="property item">
     <h3 class="name"><code>isSlave</code></h3>
     <span class="type">Bool</span>
 
     
 
-    
-        <span class="flag private">private</span>
     
 
     
@@ -3058,7 +3547,7 @@ Call this to advance the caption by a given amount of time.</p>
             
         
         
-        <a href="../files/src_Captions.js.html#l133"><code>src&#x2F;Captions.js:133</code></a>
+        <a href="../files/src_Captions.js.html#l438"><code>src&#x2F;Captions.js:438</code></a>
         
         </p>
 
@@ -3069,11 +3558,12 @@ Call this to advance the caption by a given amount of time.</p>
 
     <div class="description">
         <p>If this Captions instance is a &#39;slave&#39;, that doesn&#39;t run cloudkid.Audio
-and must have update() called manually (and passed milliseconds).
-Default is false.</p>
+and must have update() called manually (and passed milliseconds).</p>
 
     </div>
 
+    
+        <p><strong>Default:</strong> false</p>
     
 
     
@@ -3107,7 +3597,7 @@ Default is false.</p>
             
         
         
-        <a href="../files/src_Captions.js.html#l36"><code>src&#x2F;Captions.js:36</code></a>
+        <a href="../files/src_Captions.js.html#l40"><code>src&#x2F;Captions.js:40</code></a>
         
         </p>
 
@@ -3154,7 +3644,7 @@ Default is false.</p>
             
         
         
-        <a href="../files/src_Captions.js.html#l143"><code>src&#x2F;Captions.js:143</code></a>
+        <a href="../files/src_Captions.js.html#l147"><code>src&#x2F;Captions.js:147</code></a>
         
         </p>
 
@@ -3204,7 +3694,7 @@ Default is true.</p>
             
         
         
-        <a href="../files/src_Captions.js.html#l176"><code>src&#x2F;Captions.js:176</code></a>
+        <a href="../files/src_Captions.js.html#l189"><code>src&#x2F;Captions.js:189</code></a>
         
         </p>
 

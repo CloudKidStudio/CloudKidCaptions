@@ -2,7 +2,7 @@
     "project": {
         "name": "CloudKid Captions API",
         "description": "CloudKid Captions API: a library for playing captions with sound",
-        "version": "1.0.0",
+        "version": "1.1.0",
         "logo": "cloudkid.png"
     },
     "files": {
@@ -30,7 +30,7 @@
             "extension_for": [],
             "namespace": "cloudkid",
             "file": "src/Captions.js",
-            "line": 6,
+            "line": 7,
             "description": "A class that creates captioning for multimedia content. Captions are\ncreated from a dictionary of captions and can be played by alias. Captions \nis a singleton class and depends on `cloudkid.Audio` for the progress update.",
             "example": [
                 "\n\t\tvar captionsDictionary = {\n\t\t\t\"Alias1\": [\n\t\t\t\t{\"start\":0, \"end\":2000, \"content\":\"Ohh that looks awesome!\"}\n\t\t\t],\n\t\t\t\"Alias2\": [\n\t\t\t\t{\"start\":0, \"end\":2000, \"content\":\"Love it, absolutely love it!\"}\n\t\t\t]\n\t\t};\n\t\n\t\tvar captions = new cloudkid.Captions(captionsDictionary);\n\t\tcaptions.play(\"Alias1\");"
@@ -40,16 +40,24 @@
                 {
                     "name": "captionDictionary",
                     "description": "The dictionary of captions",
-                    "type": "Dictionary"
+                    "type": "Dictionary",
+                    "optional": true,
+                    "optdefault": "null"
+                },
+                {
+                    "name": "field",
+                    "description": "An text field to use as the output for this captions object",
+                    "type": "createjs.Text",
+                    "optional": true,
+                    "optdefault": "null"
                 }
-            ],
-            "author": "Matt Moore, matt@cloudkid.com"
+            ]
         }
     },
     "classitems": [
         {
             "file": "src/Captions.js",
-            "line": 36,
+            "line": 40,
             "description": "Reference to the inherieted task",
             "access": "private",
             "tagname": "",
@@ -61,7 +69,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 44,
+            "line": 48,
             "description": "An object used as a dictionary with keys that should be the same as sound aliases",
             "access": "private",
             "tagname": "",
@@ -73,7 +81,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 52,
+            "line": 56,
             "description": "A reference to the CreateJS Text object that Captions should be controlling. \n\tOnly one text field can be controlled at a time.",
             "access": "private",
             "tagname": "",
@@ -85,7 +93,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 61,
+            "line": 65,
             "description": "The function to call when playback is complete.",
             "access": "private",
             "tagname": "",
@@ -97,7 +105,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 69,
+            "line": 73,
             "description": "The collection of line objects {start:0, end:0, content:\"\"}",
             "access": "private",
             "tagname": "",
@@ -109,7 +117,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 77,
+            "line": 81,
             "description": "The duration in milliseconds of the current sound.",
             "access": "private",
             "tagname": "",
@@ -121,7 +129,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 85,
+            "line": 89,
             "description": "The current playback time",
             "access": "private",
             "tagname": "",
@@ -133,7 +141,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 93,
+            "line": 97,
             "description": "Save the current line index",
             "access": "private",
             "tagname": "",
@@ -145,7 +153,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 101,
+            "line": 105,
             "description": "Cache the last active line",
             "access": "private",
             "tagname": "",
@@ -157,7 +165,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 109,
+            "line": 113,
             "description": "If we're playing",
             "access": "private",
             "tagname": "",
@@ -169,7 +177,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 117,
+            "line": 121,
             "description": "The singleton instance of Captions",
             "access": "private",
             "tagname": "",
@@ -181,7 +189,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 125,
+            "line": 129,
             "description": "If you want to mute the captions, doesn't remove the current caption",
             "access": "private",
             "tagname": "",
@@ -193,19 +201,19 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 133,
+            "line": 137,
             "description": "If this Captions instance is a 'slave', that doesn't run cloudkid.Audio\nand must have update() called manually (and passed milliseconds).\nDefault is false.",
             "access": "private",
             "tagname": "",
             "itemtype": "property",
-            "name": "isSlave",
+            "name": "_isSlave",
             "type": "Bool",
             "class": "cloudkid.Captions",
             "namespace": "cloudkid"
         },
         {
             "file": "src/Captions.js",
-            "line": 143,
+            "line": 147,
             "description": "If text should be set on the text field with '.text = ' instead of '.setText()'.\nDefault is true.",
             "access": "private",
             "tagname": "",
@@ -217,7 +225,19 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 152,
+            "line": 156,
+            "description": "An animation timeline from Animator or PixiAnimator. This is used for syncing captions to audio that is synced\nwith with an animation.",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "_animTimeline.",
+            "type": "cloudkid.AnimatorTimeline|cloudkid.PixiAnimator.AnimTimeline",
+            "class": "cloudkid.Captions",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/Captions.js",
+            "line": 165,
             "description": "If this instance has been destroyed already",
             "access": "private",
             "tagname": "",
@@ -229,7 +249,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 160,
+            "line": 173,
             "description": "A bound update function to get the progress from Sound with",
             "access": "private",
             "tagname": "",
@@ -241,7 +261,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 168,
+            "line": 181,
             "description": "A bound completion callback for when Sound has finished playing.",
             "access": "private",
             "tagname": "",
@@ -253,7 +273,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 176,
+            "line": 189,
             "description": "The version number of this library",
             "access": "public",
             "tagname": "",
@@ -266,7 +286,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 185,
+            "line": 198,
             "description": "Creates the singleton instance of Captions, with an optional dictionary ready to go",
             "access": "public",
             "tagname": "",
@@ -275,7 +295,17 @@
             "params": [
                 {
                     "name": "captionDictionary",
-                    "description": "An object set up in dictionary format of caption objects."
+                    "description": "An object set up in dictionary format of caption objects.",
+                    "type": "Object",
+                    "optional": true,
+                    "optdefault": "null"
+                },
+                {
+                    "name": "field",
+                    "description": "An text field to use as the output for this captions object",
+                    "type": "createjs.Text",
+                    "optional": true,
+                    "optdefault": "null"
                 }
             ],
             "static": 1,
@@ -284,7 +314,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 198,
+            "line": 212,
             "description": "The singleton instance of Captions",
             "static": 1,
             "readonly": "",
@@ -298,7 +328,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 210,
+            "line": 227,
             "description": "Constructor for caption.",
             "access": "private",
             "tagname": "",
@@ -307,7 +337,16 @@
             "params": [
                 {
                     "name": "captionDictionary",
-                    "description": "An object set up in dictionary format of caption objects."
+                    "description": "An object set up in dictionary format of caption objects.",
+                    "optional": true,
+                    "optdefault": "null"
+                },
+                {
+                    "name": "field",
+                    "description": "An text field to use as the output for this captions object",
+                    "type": "createjs.Text",
+                    "optional": true,
+                    "optdefault": "null"
                 }
             ],
             "class": "cloudkid.Captions",
@@ -315,7 +354,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 232,
+            "line": 244,
             "description": "Mute all of the captions.",
             "access": "public",
             "tagname": "",
@@ -334,7 +373,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 248,
+            "line": 260,
             "description": "If the captions are all currently muted.",
             "access": "public",
             "tagname": "",
@@ -350,7 +389,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 261,
+            "line": 273,
             "description": "Sets the dictionary object to use for captions. This overrides the current dictionary, if present.",
             "access": "public",
             "tagname": "",
@@ -368,7 +407,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 305,
+            "line": 317,
             "description": "Sets the CreateJS Text or Pixi BitmapText/Text object that Captions should control the text of. \nOnly one text field can be controlled at a time.",
             "access": "public",
             "tagname": "",
@@ -386,7 +425,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 325,
+            "line": 337,
             "description": "Returns if there is a caption under that alias or not.",
             "itemtype": "method",
             "name": "hasCaption",
@@ -406,7 +445,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 337,
+            "line": 349,
             "description": "Sets an array of line data as the current caption data to play.",
             "access": "private",
             "tagname": "",
@@ -424,7 +463,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 360,
+            "line": 372,
             "description": "Reset the captions",
             "access": "private",
             "tagname": "",
@@ -435,7 +474,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 372,
+            "line": 384,
             "description": "Take the captions timecode and convert to milliseconds\nformat is in HH:MM:ss:mmm",
             "access": "private",
             "tagname": "",
@@ -457,7 +496,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 393,
+            "line": 405,
             "description": "The playing status.",
             "access": "public",
             "tagname": "",
@@ -472,7 +511,40 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 416,
+            "line": 417,
+            "description": "Calculate the total duration of the current caption",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "_getTotalDuration",
+            "class": "cloudkid.Captions",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/Captions.js",
+            "line": 428,
+            "description": "Get the current duration of the current caption",
+            "itemtype": "property",
+            "name": "currentDuration",
+            "type": "Int",
+            "readonly": "",
+            "class": "cloudkid.Captions",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/Captions.js",
+            "line": 438,
+            "description": "If this Captions instance is a 'slave', that doesn't run cloudkid.Audio\nand must have update() called manually (and passed milliseconds).",
+            "itemtype": "property",
+            "name": "isSlave",
+            "type": "Bool",
+            "default": "false",
+            "class": "cloudkid.Captions",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/Captions.js",
+            "line": 450,
             "description": "Start the caption playback. Captions will tell cloudkid.Audio to play the proper sound.",
             "access": "public",
             "tagname": "",
@@ -490,13 +562,19 @@
                     "type": "Function"
                 }
             ],
+            "return": {
+                "description": "The update function that should be called if captions isSlave is true",
+                "type": "Function"
+            },
             "class": "cloudkid.Captions",
             "namespace": "cloudkid"
         },
         {
             "file": "src/Captions.js",
-            "line": 439,
-            "description": "Starts caption playback without controlling the sound. Returns the update\nfunction that should be called to control the Captions object.",
+            "line": 485,
+            "description": "Starts caption playback without controlling the sound or animation. Returns the update\nfunction that should be called to control the Captions object.",
+            "deprecated": true,
+            "deprecationMessage": "Use play(alias) instead, isSlave should be set to true",
             "access": "public",
             "tagname": "",
             "itemtype": "method",
@@ -517,7 +595,27 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 460,
+            "line": 503,
+            "description": "Runs a caption synced to the audio of an animation.",
+            "deprecated": true,
+            "deprecationMessage": "Set Animator.captions or PixiAnimator.captions to set the captions object to use",
+            "access": "public",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "runWithAnimation",
+            "params": [
+                {
+                    "name": "animTimeline",
+                    "description": "The animation to sync to.",
+                    "type": "cloudkid.AnimatorTimeline|cloudkid.PixiAnimator.AnimTimeline"
+                }
+            ],
+            "class": "cloudkid.Captions",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/Captions.js",
+            "line": 519,
             "description": "Is called when cloudkid.Audio finishes playing. Is not called if \na cloudkid.AudioAnimation finishes playing, as then stop() is called.",
             "access": "private",
             "tagname": "",
@@ -528,7 +626,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 477,
+            "line": 536,
             "description": "Convience function for stopping captions. Is also called by \ncloudkid.AudioAnimation when it is finished.",
             "access": "public",
             "tagname": "",
@@ -539,7 +637,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 497,
+            "line": 561,
             "description": "Goto a specific time.",
             "access": "public",
             "tagname": "",
@@ -557,7 +655,18 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 543,
+            "line": 607,
+            "description": "Callback for when a frame is entered, to sync to an animation's audio.",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "_updateToAnim",
+            "class": "cloudkid.Captions",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/Captions.js",
+            "line": 629,
             "description": "Callback for when a frame is entered.",
             "access": "private",
             "tagname": "",
@@ -575,7 +684,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 557,
+            "line": 643,
             "description": "Function to update the amount of time elapsed for the caption playback.\nCall this to advance the caption by a given amount of time.",
             "access": "public",
             "tagname": "",
@@ -593,7 +702,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 572,
+            "line": 658,
             "description": "Calculates the captions after increasing the current time.",
             "access": "private",
             "tagname": "",
@@ -604,7 +713,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 609,
+            "line": 695,
             "description": "Updates the text in the managed text field.",
             "access": "private",
             "tagname": "",
@@ -615,7 +724,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 627,
+            "line": 713,
             "description": "Destroy this load task and don't use after this",
             "itemtype": "method",
             "name": "destroy",
