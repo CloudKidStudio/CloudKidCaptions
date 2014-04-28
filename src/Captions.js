@@ -1,3 +1,6 @@
+/**
+*  @module cloudkid
+*/
 (function(){
 	
 	// Global classes to use, they will actually be imported in the constructor
@@ -22,7 +25,7 @@
 		var captions = new cloudkid.Captions(captionsDictionary);
 		captions.play("Alias1");
 	*
-	* @class cloudkid.Captions
+	* @class Captions
 	* @constructor
 	* @namespace cloudkid
 	* @param {Dictionary} [captionDictionary=null] The dictionary of captions
