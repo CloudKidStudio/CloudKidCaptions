@@ -3,7 +3,7 @@
         "name": "CloudKid Captions API",
         "description": "CloudKid Captions API: a library for playing captions with sound",
         "version": "1.1.0",
-        "logo": "cloudkid.png"
+        "logo": ""
     },
     "files": {
         "src/Captions.js": {
