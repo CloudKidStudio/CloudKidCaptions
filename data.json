@@ -82,18 +82,18 @@
         {
             "file": "src/Captions.js",
             "line": 56,
-            "description": "A reference to the CreateJS Text object that Captions should be controlling. \n\tOnly one text field can be controlled at a time.",
+            "description": "A reference to the CreateJS Text object that Captions should be controlling. \nOnly one text field can be controlled at a time.\nWhen using PIXI textfields, textIsProp should be false.",
             "access": "private",
             "tagname": "",
             "itemtype": "property",
             "name": "_textField",
-            "type": "Text",
+            "type": "createjs.Text|PIXI.Text|PIXI.BitmapText",
             "class": "cloudkid.Captions",
             "namespace": "cloudkid"
         },
         {
             "file": "src/Captions.js",
-            "line": 65,
+            "line": 66,
             "description": "The function to call when playback is complete.",
             "access": "private",
             "tagname": "",
@@ -105,7 +105,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 73,
+            "line": 74,
             "description": "The collection of line objects {start:0, end:0, content:\"\"}",
             "access": "private",
             "tagname": "",
@@ -117,7 +117,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 81,
+            "line": 82,
             "description": "The duration in milliseconds of the current sound.",
             "access": "private",
             "tagname": "",
@@ -129,7 +129,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 89,
+            "line": 90,
             "description": "The current playback time",
             "access": "private",
             "tagname": "",
@@ -141,7 +141,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 97,
+            "line": 98,
             "description": "Save the current line index",
             "access": "private",
             "tagname": "",
@@ -153,7 +153,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 105,
+            "line": 106,
             "description": "Cache the last active line",
             "access": "private",
             "tagname": "",
@@ -165,7 +165,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 113,
+            "line": 114,
             "description": "If we're playing",
             "access": "private",
             "tagname": "",
@@ -177,7 +177,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 121,
+            "line": 122,
             "description": "The singleton instance of Captions",
             "access": "private",
             "tagname": "",
@@ -189,7 +189,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 129,
+            "line": 130,
             "description": "If you want to mute the captions, doesn't remove the current caption",
             "access": "private",
             "tagname": "",
@@ -201,7 +201,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 137,
+            "line": 138,
             "description": "If this Captions instance is a 'slave', that doesn't run cloudkid.Audio\nand must have update() called manually (and passed milliseconds).\nDefault is false.",
             "access": "private",
             "tagname": "",
@@ -213,8 +213,8 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 147,
-            "description": "If text should be set on the text field with '.text = ' instead of '.setText()'.\nDefault is true.",
+            "line": 148,
+            "description": "If text should be set on the text field with '.text = ' instead of '.setText()'.\nWhen using PIXI textfields, textIsProp should be false.\nDefault is true.",
             "access": "private",
             "tagname": "",
             "itemtype": "property",
@@ -225,7 +225,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 156,
+            "line": 158,
             "description": "An animation timeline from Animator or PixiAnimator. This is used for syncing captions to audio that is synced\nwith with an animation.",
             "access": "private",
             "tagname": "",
@@ -237,7 +237,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 165,
+            "line": 167,
             "description": "If this instance has been destroyed already",
             "access": "private",
             "tagname": "",
@@ -249,7 +249,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 173,
+            "line": 175,
             "description": "A bound update function to get the progress from Sound with",
             "access": "private",
             "tagname": "",
@@ -261,7 +261,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 181,
+            "line": 183,
             "description": "A bound completion callback for when Sound has finished playing.",
             "access": "private",
             "tagname": "",
@@ -273,7 +273,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 189,
+            "line": 191,
             "description": "The version number of this library",
             "access": "public",
             "tagname": "",
@@ -286,7 +286,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 198,
+            "line": 200,
             "description": "Creates the singleton instance of Captions, with an optional dictionary ready to go",
             "access": "public",
             "tagname": "",
@@ -314,7 +314,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 212,
+            "line": 214,
             "description": "The singleton instance of Captions",
             "static": 1,
             "readonly": "",
@@ -328,7 +328,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 227,
+            "line": 229,
             "description": "Constructor for caption.",
             "access": "private",
             "tagname": "",
@@ -343,8 +343,8 @@
                 },
                 {
                     "name": "field",
-                    "description": "An text field to use as the output for this captions object",
-                    "type": "createjs.Text",
+                    "description": "An text field to use as the output for this captions object. When using PIXI textfields, textIsProp should be false.",
+                    "type": "createjs.Text|PIXI.Text|PIXI.BitmapText",
                     "optional": true,
                     "optdefault": "null"
                 }
@@ -354,7 +354,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 244,
+            "line": 246,
             "description": "Mute all of the captions.",
             "access": "public",
             "tagname": "",
@@ -373,7 +373,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 260,
+            "line": 262,
             "description": "If the captions are all currently muted.",
             "access": "public",
             "tagname": "",
@@ -389,7 +389,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 273,
+            "line": 275,
             "description": "Sets the dictionary object to use for captions. This overrides the current dictionary, if present.",
             "access": "public",
             "tagname": "",
@@ -407,8 +407,8 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 317,
-            "description": "Sets the CreateJS Text or Pixi BitmapText/Text object that Captions should control the text of. \nOnly one text field can be controlled at a time.",
+            "line": 319,
+            "description": "Sets the CreateJS Text or Pixi BitmapText/Text object that Captions should control the text of. \nOnly one text field can be controlled at a time. When using PIXI textfields, textIsProp should be false.",
             "access": "public",
             "tagname": "",
             "itemtype": "method",
@@ -416,8 +416,8 @@
             "params": [
                 {
                     "name": "field",
-                    "description": "The CreateJS Text object",
-                    "type": "Text"
+                    "description": "The CreateJS or PIXI Text object",
+                    "type": "createjs.Text|PIXI.Text|PIXI.BitmapText"
                 }
             ],
             "class": "cloudkid.Captions",
@@ -425,7 +425,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 337,
+            "line": 339,
             "description": "Returns if there is a caption under that alias or not.",
             "itemtype": "method",
             "name": "hasCaption",
@@ -445,7 +445,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 349,
+            "line": 351,
             "description": "Sets an array of line data as the current caption data to play.",
             "access": "private",
             "tagname": "",
@@ -463,7 +463,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 372,
+            "line": 374,
             "description": "Reset the captions",
             "access": "private",
             "tagname": "",
@@ -474,7 +474,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 384,
+            "line": 386,
             "description": "Take the captions timecode and convert to milliseconds\nformat is in HH:MM:ss:mmm",
             "access": "private",
             "tagname": "",
@@ -496,7 +496,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 405,
+            "line": 407,
             "description": "The playing status.",
             "access": "public",
             "tagname": "",
@@ -511,7 +511,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 417,
+            "line": 419,
             "description": "Calculate the total duration of the current caption",
             "access": "private",
             "tagname": "",
@@ -522,7 +522,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 428,
+            "line": 430,
             "description": "Get the current duration of the current caption",
             "itemtype": "property",
             "name": "currentDuration",
@@ -533,7 +533,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 438,
+            "line": 440,
             "description": "If this Captions instance is a 'slave', that doesn't run cloudkid.Audio\nand must have update() called manually (and passed milliseconds).",
             "itemtype": "property",
             "name": "isSlave",
@@ -544,7 +544,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 450,
+            "line": 452,
             "description": "Start the caption playback. Captions will tell cloudkid.Audio to play the proper sound.",
             "access": "public",
             "tagname": "",
@@ -571,7 +571,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 485,
+            "line": 487,
             "description": "Starts caption playback without controlling the sound or animation. Returns the update\nfunction that should be called to control the Captions object.",
             "deprecated": true,
             "deprecationMessage": "Use play(alias) instead, isSlave should be set to true",
@@ -595,7 +595,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 503,
+            "line": 505,
             "description": "Runs a caption synced to the audio of an animation.",
             "deprecated": true,
             "deprecationMessage": "Set Animator.captions or PixiAnimator.captions to set the captions object to use",
@@ -615,7 +615,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 519,
+            "line": 521,
             "description": "Is called when cloudkid.Audio finishes playing. Is not called if \na cloudkid.AudioAnimation finishes playing, as then stop() is called.",
             "access": "private",
             "tagname": "",
@@ -626,7 +626,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 536,
+            "line": 538,
             "description": "Convience function for stopping captions. Is also called by \ncloudkid.AudioAnimation when it is finished.",
             "access": "public",
             "tagname": "",
@@ -637,7 +637,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 561,
+            "line": 563,
             "description": "Goto a specific time.",
             "access": "public",
             "tagname": "",
@@ -655,7 +655,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 607,
+            "line": 609,
             "description": "Callback for when a frame is entered, to sync to an animation's audio.",
             "access": "private",
             "tagname": "",
@@ -666,7 +666,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 629,
+            "line": 631,
             "description": "Callback for when a frame is entered.",
             "access": "private",
             "tagname": "",
@@ -684,7 +684,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 643,
+            "line": 645,
             "description": "Function to update the amount of time elapsed for the caption playback.\nCall this to advance the caption by a given amount of time.",
             "access": "public",
             "tagname": "",
@@ -702,7 +702,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 658,
+            "line": 660,
             "description": "Calculates the captions after increasing the current time.",
             "access": "private",
             "tagname": "",
@@ -713,7 +713,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 695,
+            "line": 697,
             "description": "Updates the text in the managed text field.",
             "access": "private",
             "tagname": "",
@@ -724,7 +724,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 713,
+            "line": 715,
             "description": "Destroy this load task and don't use after this",
             "itemtype": "method",
             "name": "destroy",
