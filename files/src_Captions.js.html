@@ -45,6 +45,8 @@
 
             <ul id="api-modules" class="apis modules">
             
+                <li><a href="../modules/cloudkid.html">cloudkid</a></li>
+            
             </ul>
         </div>
     </div>
@@ -85,6 +87,9 @@
 
 <div class="file">
     <pre class="code prettyprint linenums">
+/**
+*  @module cloudkid
+*/
 (function(){
 	
 	// Global classes to use, they will actually be imported in the constructor
@@ -109,7 +114,7 @@
 		var captions = new cloudkid.Captions(captionsDictionary);
 		captions.play(&quot;Alias1&quot;);
 	*
-	* @class cloudkid.Captions
+	* @class Captions
 	* @constructor
 	* @namespace cloudkid
 	* @param {Dictionary} [captionDictionary=null] The dictionary of captions

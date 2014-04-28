@@ -3,7 +3,14 @@ YUI.add("yuidoc-meta", function(Y) {
     "classes": [
         "cloudkid.Captions"
     ],
-    "modules": [],
-    "allModules": []
+    "modules": [
+        "cloudkid"
+    ],
+    "allModules": [
+        {
+            "displayName": "cloudkid",
+            "name": "cloudkid"
+        }
+    ]
 } };
 });
