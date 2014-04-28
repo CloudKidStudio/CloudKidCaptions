@@ -55,10 +55,11 @@
 	
 	/** 
 	* A reference to the CreateJS Text object that Captions should be controlling. 
-	*	Only one text field can be controlled at a time.
+	* Only one text field can be controlled at a time.
+	* When using PIXI textfields, textIsProp should be false.
 	*
 	* @private
-	* @property {Text} _textField
+	* @property {createjs.Text|PIXI.Text|PIXI.BitmapText} _textField
 	*/
 	p._textField = null;
 	
@@ -146,6 +147,7 @@
 	
 	/**
 	* If text should be set on the text field with '.text = ' instead of '.setText()'.
+	* When using PIXI textfields, textIsProp should be false.
 	* Default is true.
 	*
 	* @private
@@ -230,7 +232,7 @@
 	* @private
 	* @method initialize
 	* @param [captionDictionary=null] An object set up in dictionary format of caption objects.
-	* @param {createjs.Text} [field=null] An text field to use as the output for this captions object
+	* @param {createjs.Text|PIXI.Text|PIXI.BitmapText} [field=null] An text field to use as the output for this captions object. When using PIXI textfields, textIsProp should be false.
 	*/
 	p.initialize = function(captionDictionary, field)
 	{
@@ -316,11 +318,11 @@
 	
 	/** 
 	* Sets the CreateJS Text or Pixi BitmapText/Text object that Captions should control the text of. 
-	* Only one text field can be controlled at a time. 
+	* Only one text field can be controlled at a time. When using PIXI textfields, textIsProp should be false.
 	*
 	* @public
 	* @method setTextField
-	* @param {Text} field The CreateJS Text object 
+	* @param {createjs.Text|PIXI.Text|PIXI.BitmapText} field The CreateJS or PIXI Text object 
 	*/
 	p.setTextField = function(field)
 	{
