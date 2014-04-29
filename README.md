@@ -5,7 +5,7 @@ API for controlling the playback of captions in CloudKidOS
 
 ##Documentation##
 
-http://cloudkidstudio.github.io/CloudKidSound/
+http://cloudkidstudio.github.io/CloudKidCaptions/
 
 ##Installation##
 
