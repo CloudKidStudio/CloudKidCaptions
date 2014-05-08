@@ -350,6 +350,42 @@
 	{
 		return this._captionDict ? !!this._captionDict[alias] : false;
 	};
+
+	/** 
+	 * A utility function for getting the full text of a caption by alias
+	 * this can be useful for debugging purposes. 
+	 * 
+	 * @method  getFullCaption
+	 * @param {String} alias The alias to get the text of
+	 * @param {String} [separator=" "] The separation between each line
+	 * @return {String} The entire captions concatinated by the separator
+	 */
+	p.getFullCaption = function(alias, separator)
+	{
+		if (!this._captionDict || !this._captionDict[alias]) return;
+
+		separator = separator || " ";
+
+		var result, 
+			content, 
+			lines = this._captionDict[alias].lines, 
+			len = lines.length;
+
+		for (var i = 0; i < len; i++)
+		{
+			content = lines[i].content;
+
+			if (i === 0)
+			{
+				result = content;
+			}
+			else
+			{
+				result += separator + content;
+			}
+		}
+		return result;
+	};
 	
 	/**
 	* Sets an array of line data as the current caption data to play.

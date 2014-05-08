@@ -1,3 +1,6 @@
+/**
+*  @module cloudkid
+*/
 (function(){
 	
 	// Global classes to use, they will actually be imported in the constructor
@@ -22,7 +25,7 @@
 		var captions = new cloudkid.Captions(captionsDictionary);
 		captions.play("Alias1");
 	*
-	* @class cloudkid.Captions
+	* @class Captions
 	* @constructor
 	* @namespace cloudkid
 	* @param {Dictionary} [captionDictionary=null] The dictionary of captions
@@ -55,10 +58,11 @@
 	
 	/** 
 	* A reference to the CreateJS Text object that Captions should be controlling. 
-	*	Only one text field can be controlled at a time.
+	* Only one text field can be controlled at a time.
+	* When using PIXI textfields, textIsProp should be false.
 	*
 	* @private
-	* @property {Text} _textField
+	* @property {createjs.Text|PIXI.Text|PIXI.BitmapText} _textField
 	*/
 	p._textField = null;
 	
@@ -146,6 +150,7 @@
 	
 	/**
 	* If text should be set on the text field with '.text = ' instead of '.setText()'.
+	* When using PIXI textfields, textIsProp should be false.
 	* Default is true.
 	*
 	* @private
@@ -230,7 +235,7 @@
 	* @private
 	* @method initialize
 	* @param [captionDictionary=null] An object set up in dictionary format of caption objects.
-	* @param {createjs.Text} [field=null] An text field to use as the output for this captions object
+	* @param {createjs.Text|PIXI.Text|PIXI.BitmapText} [field=null] An text field to use as the output for this captions object. When using PIXI textfields, textIsProp should be false.
 	*/
 	p.initialize = function(captionDictionary, field)
 	{
@@ -316,11 +321,11 @@
 	
 	/** 
 	* Sets the CreateJS Text or Pixi BitmapText/Text object that Captions should control the text of. 
-	* Only one text field can be controlled at a time. 
+	* Only one text field can be controlled at a time. When using PIXI textfields, textIsProp should be false.
 	*
 	* @public
 	* @method setTextField
-	* @param {Text} field The CreateJS Text object 
+	* @param {createjs.Text|PIXI.Text|PIXI.BitmapText} field The CreateJS or PIXI Text object 
 	*/
 	p.setTextField = function(field)
 	{
@@ -344,6 +349,42 @@
 	p.hasCaption = function(alias)
 	{
 		return this._captionDict ? !!this._captionDict[alias] : false;
+	};
+
+	/** 
+	 * A utility function for getting the full text of a caption by alias
+	 * this can be useful for debugging purposes. 
+	 * 
+	 * @method  getFullCaption
+	 * @param {String} alias The alias to get the text of
+	 * @param {String} [separator=" "] The separation between each line
+	 * @return {String} The entire captions concatinated by the separator
+	 */
+	p.getFullCaption = function(alias, separator)
+	{
+		if (!this._captionDict || !this._captionDict[alias]) return;
+
+		separator = separator || " ";
+
+		var result, 
+			content, 
+			lines = this._captionDict[alias].lines, 
+			len = lines.length;
+
+		for (var i = 0; i < len; i++)
+		{
+			content = lines[i].content;
+
+			if (i === 0)
+			{
+				result = content;
+			}
+			else
+			{
+				result += separator + content;
+			}
+		}
+		return result;
 	};
 	
 	/**

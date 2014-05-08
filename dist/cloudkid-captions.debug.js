@@ -11,7 +11,7 @@
     p._playing = !1;
     var _instance = null, _muteAll = !1;
     p._isSlave = !1, p.textIsProp = !0, p._animTimeline = null, p._isDestroyed = !1, 
-    p._boundUpdate = null, p._boundComplete = null, Captions.VERSION = "1.1.0", 
+    p._boundUpdate = null, p._boundComplete = null, Captions.VERSION = "1.1.1", 
     Captions.init = function(captionDictionary, field) {
         _instance = new Captions(captionDictionary, field);
     }, Object.defineProperty(Captions, "instance", {
@@ -42,6 +42,13 @@
         this._textField = field || null;
     }, p.hasCaption = function(alias) {
         return this._captionDict ? !!this._captionDict[alias] : !1;
+    }, p.getFullCaption = function(alias, separator) {
+        if (this._captionDict && this._captionDict[alias]) {
+            separator = separator || " ";
+            for (var result, content, lines = this._captionDict[alias].lines, len = lines.length, i = 0; len > i; i++) content = lines[i].content, 
+            0 === i ? result = content : result += separator + content;
+            return result;
+        }
     }, p._load = function(data) {
         return this._isDestroyed ? void 0 : (this._reset(), data ? (this._lines = data.lines, 
         void 0) : (this._lines = null, void 0));
