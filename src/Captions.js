@@ -27,7 +27,6 @@
 	*
 	* @class Captions
 	* @constructor
-	* @namespace cloudkid
 	* @param {Dictionary} [captionDictionary=null] The dictionary of captions
 	* @param {createjs.Text} [field=null] An text field to use as the output for this captions object
 	*/
@@ -126,7 +125,7 @@
 	* The singleton instance of Captions 
 	*
 	* @private
-	* @property {cloudkid.Captions} _instance
+	* @property {Captions} _instance
 	*/
 	var _instance = null;
 	
@@ -220,7 +219,7 @@
 	*  @static
 	*  @readOnly
 	*  @public
-	*  @property {cloudkid.Captions} instance
+	*  @property {Captions} instance
 	*/
 	Object.defineProperty(
 		Captions, "instance", 
