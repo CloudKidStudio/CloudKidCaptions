@@ -2,7 +2,7 @@
     "project": {
         "name": "CloudKid Captions API",
         "description": "CloudKid Captions API: a library for playing captions with sound",
-        "version": "1.1.0",
+        "version": "1.1.1",
         "logo": ""
     },
     "files": {
@@ -491,6 +491,32 @@
         {
             "file": "src/Captions.js",
             "line": 354,
+            "description": "A utility function for getting the full text of a caption by alias\nthis can be useful for debugging purposes.",
+            "itemtype": "method",
+            "name": "getFullCaption",
+            "params": [
+                {
+                    "name": "alias",
+                    "description": "The alias to get the text of",
+                    "type": "String"
+                },
+                {
+                    "name": "[separator=\"",
+                    "description": "\"] The separation between each line",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "The entire captions concatinated by the separator",
+                "type": "String"
+            },
+            "class": "cloudkid.Captions",
+            "module": "cloudkid",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/Captions.js",
+            "line": 390,
             "description": "Sets an array of line data as the current caption data to play.",
             "access": "private",
             "tagname": "",
@@ -509,7 +535,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 377,
+            "line": 413,
             "description": "Reset the captions",
             "access": "private",
             "tagname": "",
@@ -521,7 +547,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 389,
+            "line": 425,
             "description": "Take the captions timecode and convert to milliseconds\nformat is in HH:MM:ss:mmm",
             "access": "private",
             "tagname": "",
@@ -544,7 +570,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 410,
+            "line": 446,
             "description": "The playing status.",
             "access": "public",
             "tagname": "",
@@ -560,7 +586,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 422,
+            "line": 458,
             "description": "Calculate the total duration of the current caption",
             "access": "private",
             "tagname": "",
@@ -572,7 +598,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 433,
+            "line": 469,
             "description": "Get the current duration of the current caption",
             "itemtype": "property",
             "name": "currentDuration",
@@ -584,7 +610,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 443,
+            "line": 479,
             "description": "If this Captions instance is a 'slave', that doesn't run cloudkid.Audio\nand must have update() called manually (and passed milliseconds).",
             "itemtype": "property",
             "name": "isSlave",
@@ -596,7 +622,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 455,
+            "line": 491,
             "description": "Start the caption playback. Captions will tell cloudkid.Audio to play the proper sound.",
             "access": "public",
             "tagname": "",
@@ -624,7 +650,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 490,
+            "line": 526,
             "description": "Starts caption playback without controlling the sound or animation. Returns the update\nfunction that should be called to control the Captions object.",
             "deprecated": true,
             "deprecationMessage": "Use play(alias) instead, isSlave should be set to true",
@@ -649,7 +675,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 508,
+            "line": 544,
             "description": "Runs a caption synced to the audio of an animation.",
             "deprecated": true,
             "deprecationMessage": "Set Animator.captions or PixiAnimator.captions to set the captions object to use",
@@ -670,7 +696,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 524,
+            "line": 560,
             "description": "Is called when cloudkid.Audio finishes playing. Is not called if \na cloudkid.AudioAnimation finishes playing, as then stop() is called.",
             "access": "private",
             "tagname": "",
@@ -682,7 +708,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 541,
+            "line": 577,
             "description": "Convience function for stopping captions. Is also called by \ncloudkid.AudioAnimation when it is finished.",
             "access": "public",
             "tagname": "",
@@ -694,7 +720,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 566,
+            "line": 602,
             "description": "Goto a specific time.",
             "access": "public",
             "tagname": "",
@@ -713,7 +739,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 612,
+            "line": 648,
             "description": "Callback for when a frame is entered, to sync to an animation's audio.",
             "access": "private",
             "tagname": "",
@@ -725,7 +751,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 634,
+            "line": 670,
             "description": "Callback for when a frame is entered.",
             "access": "private",
             "tagname": "",
@@ -744,7 +770,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 648,
+            "line": 684,
             "description": "Function to update the amount of time elapsed for the caption playback.\nCall this to advance the caption by a given amount of time.",
             "access": "public",
             "tagname": "",
@@ -763,7 +789,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 663,
+            "line": 699,
             "description": "Calculates the captions after increasing the current time.",
             "access": "private",
             "tagname": "",
@@ -775,7 +801,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 700,
+            "line": 736,
             "description": "Updates the text in the managed text field.",
             "access": "private",
             "tagname": "",
@@ -787,7 +813,7 @@
         },
         {
             "file": "src/Captions.js",
-            "line": 718,
+            "line": 754,
             "description": "Destroy this load task and don't use after this",
             "itemtype": "method",
             "name": "destroy",
