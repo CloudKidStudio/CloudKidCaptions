@@ -5,7 +5,7 @@
 	
 	// Global classes to use, they will actually be imported in the constructor
 	// so that we don't require a specific load order
-	var Audio, OS;
+	var Audio, Application;
 	
 	/**
 	* A class that creates captioning for multimedia content. Captions are
@@ -34,7 +34,7 @@
 	{
 		// Import external classes
 		Audio = cloudkid.Audio;
-		OS = cloudkid.OS;
+		Application = cloudkid.Application;
 
 		this.initialize(captionDictionary, field);
 	};
@@ -243,6 +243,7 @@
 		this.setTextField(field);
 		this._boundUpdate = this._updatePercent.bind(this);
 		this._boundComplete = this._onSoundComplete.bind(this);
+		this._updateToAnim = this._updateToAnim.bind(this);
 	};
 	
 	/**
@@ -553,7 +554,7 @@
 		this.stop();
 		this._animTimeline = animTimeline;
 		this._load(this._captionDict[animTimeline.soundAlias]);
-		OS.instance.addUpdateCallback("CK_Captions", this._updateToAnim.bind(this));
+		Application.instance.on("update", this._updateToAnim);
 	};
 	
 	/** 
@@ -590,7 +591,7 @@
 		if(this._animTimeline)
 		{
 			this._animTimeline = null;
-			OS.instance.removeUpdateCallback("CK_Captions");
+			Application.instance.off("update", this._updateToAnim);
 		}
 		this._lines = null;
 		this._completeCallback = null;

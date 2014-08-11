@@ -3,8 +3,8 @@
         var lastPeriodIndex = input.lastIndexOf("."), ms = parseInt(input.substr(lastPeriodIndex + 1), 10), parts = input.substr(0, lastPeriodIndex).split(":"), h = 36e5 * parseInt(parts[0], 10), m = 6e3 * parseInt(parts[1], 10), s = 1e3 * parseInt(parts[2], 10);
         return h + m + s + ms;
     }
-    var Audio, OS, Captions = function(captionDictionary, field) {
-        Audio = cloudkid.Audio, OS = cloudkid.OS, this.initialize(captionDictionary, field);
+    var Audio, Application, Captions = function(captionDictionary, field) {
+        Audio = cloudkid.Audio, Application = cloudkid.Application, this.initialize(captionDictionary, field);
     }, p = Captions.prototype;
     p._captionDict = null, p._textField = null, p._completeCallback = null, p._lines = null, 
     p._currentDuration = 0, p._currentTime = 0, p._currentLine = -1, p._lastActiveLine = -1, 
@@ -20,7 +20,8 @@
         }
     }), p.initialize = function(captionDictionary, field) {
         this._lines = [], this.setDictionary(captionDictionary || null), this.setTextField(field), 
-        this._boundUpdate = this._updatePercent.bind(this), this._boundComplete = this._onSoundComplete.bind(this);
+        this._boundUpdate = this._updatePercent.bind(this), this._boundComplete = this._onSoundComplete.bind(this), 
+        this._updateToAnim = this._updateToAnim.bind(this);
     }, Captions.setMuteAll = function(muteAll) {
         _muteAll = muteAll, _instance && _instance._updateCaptions();
     }, Captions.getMuteAll = function() {
@@ -50,8 +51,7 @@
             return result;
         }
     }, p._load = function(data) {
-        return this._isDestroyed ? void 0 : (this._reset(), data ? (this._lines = data.lines, 
-        void 0) : (this._lines = null, void 0));
+        return this._isDestroyed ? void 0 : (this._reset(), data ? void (this._lines = data.lines) : void (this._lines = null));
     }, p._reset = function() {
         this._currentLine = -1, this._lastActiveLine = -1;
     }, p.isPlaying = function() {
@@ -80,19 +80,19 @@
         return this.play(alias);
     }, p.runWithAnimation = function(animTimeline) {
         animTimeline.soundAlias && (this.stop(), this._animTimeline = animTimeline, this._load(this._captionDict[animTimeline.soundAlias]), 
-        OS.instance.addUpdateCallback("CK_Captions", this._updateToAnim.bind(this)));
+        Application.instance.on("update", this._updateToAnim));
     }, p._onSoundComplete = function() {
         var callback = this._completeCallback;
         this.stop(), callback && callback();
     }, p.stop = function() {
         !this._isSlave && this._playing && (Audio.instance.stop(), this._playing = !1), 
-        this._animTimeline && (this._animTimeline = null, OS.instance.removeUpdateCallback("CK_Captions")), 
+        this._animTimeline && (this._animTimeline = null, Application.instance.off("update", this._updateToAnim)), 
         this._lines = null, this._completeCallback = null, this._reset(), this._updateCaptions();
     }, p.seek = function(time) {
         var currentTime = this._currentTime = time, lines = this._lines;
-        if (!lines) return this._updateCaptions(), void 0;
+        if (!lines) return void this._updateCaptions();
         if (currentTime < lines[0].start) return currentLine = this._lastActiveLine = -1, 
-        this._updateCaptions(), void 0;
+        void this._updateCaptions();
         for (var len = lines.length, i = 0; len > i; i++) {
             if (currentTime >= lines[i].start && currentTime <= lines[i].end) {
                 this._currentLine = this._lastActiveLine = i, this._updateCaptions();
