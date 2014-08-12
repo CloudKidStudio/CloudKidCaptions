@@ -3,8 +3,8 @@
     "version": "1.1.1",
     "main": "dist/cloudkid-captions.min.js",
     "dependencies": {
-        "cloudkid-os" : "*",
-        "cloudkid-audio" : "^2.0.0"
+        "cloudkid-framework" : "*",
+        "cloudkid-audio" : "#framework"
     },
     "ignore": [
         "build.xml",
